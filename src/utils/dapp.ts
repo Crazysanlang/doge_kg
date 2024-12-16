@@ -1,11 +1,10 @@
-import { ethers } from "ethers";
+import { BrowserProvider, Eip1193Provider, ethers } from "ethers";
 
 declare global {
   interface Window {
-    ethereum?: import("ethers").providers.ExternalProvider;
+    ethereum: Eip1193Provider & BrowserProvider;
   }
 }
-
 const staking_addr = "0xF0B86EDe76D7943d972D40926C2949F3c0dE269c";
 const dog_addr = "0xE4C310b9a1Fa747bb649cD76EaD58D94EE75123C";
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
@@ -76,19 +75,19 @@ const connectMetamask = async () => {
 const stakeUSDT = async (amount: string, parent = null) => {
   if (!window.ethereum) return { error: true, msg: "please connect wallet" };
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
 
-  const value = ethers.utils.parseEther(amount);
-  const signer = provider.getSigner();
+  const value = ethers.parseEther(amount);
+  const signer = await provider.getSigner();
 
   const stake = new ethers.Contract(staking_addr, IStaking, signer);
 
   const token = new ethers.Contract(USDT, IWEB, signer);
 
   const bal = await token.balanceOf(account);
-  if (value.gt(bal)) {
+  if (value > bal) {
     return { error: true, msg: "Insufficient balance" };
   }
 
@@ -134,7 +133,7 @@ const stakeUSDT = async (amount: string, parent = null) => {
 //判断此账户是否是节点
 const isKOL = async () => {
   if (!window.ethereum) return false;
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
   const stake = new ethers.Contract(staking_addr, IStaking, provider);
@@ -145,11 +144,11 @@ const isKOL = async () => {
 //领取所有利息
 const withdrawAllReward = async () => {
   if (!window.ethereum) return { error: true, msg: "please connect wallet" };
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
 
-  const signer = provider.getSigner();
+  const signer = await provider.getSigner();
   const stake = new ethers.Contract(staking_addr, IStaking, signer);
   const tx = await stake.get_reward_all();
   const r = await tx.wait();
@@ -159,18 +158,18 @@ const withdrawAllReward = async () => {
 //升级节点
 const joinIn = async () => {
   if (!window.ethereum) return { error: true, msg: "please connect wallet" };
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
 
-  const signer = provider.getSigner();
+  const signer = await provider.getSigner();
 
   const token = new ethers.Contract(USDT, IWEB, signer);
 
   const allowance = await token.allowance(account, staking_addr);
 
-  if (allowance.lt("5000000000000000000")) {
-    const tx = await token.approve(staking_addr, ethers.constants.MaxUint256);
+  if (allowance < 5000000000000000000n) {
+    const tx = await token.approve(staking_addr, ethers.MaxUint256);
     await tx.wait();
   }
 
@@ -183,7 +182,7 @@ const joinIn = async () => {
 //待领取的收益
 const get_suan_li__dd = async () => {
   if (!window.ethereum) return 0;
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
   const stake = new ethers.Contract(staking_addr, IStaking, provider);
@@ -191,10 +190,10 @@ const get_suan_li__dd = async () => {
 
   const storg = await stake.userReward(account);
 
-  const cap = Number(ethers.utils.formatEther(bal.stake_amount.mul("2")));
-  const dai_ling_qu = Number(ethers.utils.formatEther(bal.reward));
-  const liu_shui_qu = Number(ethers.utils.formatEther(bal.withdrawableAmount));
-  const yi_ling_qu = cap - Number(ethers.utils.formatEther(storg.balance));
+  const cap = Number(ethers.formatEther(bal.stake_amount * 2n));
+  const dai_ling_qu = Number(ethers.formatEther(bal.reward));
+  const liu_shui_qu = Number(ethers.formatEther(bal.withdrawableAmount));
+  const yi_ling_qu = cap - Number(ethers.formatEther(storg.balance));
   return {
     cap: cap.toFixed(4),
     dai_ling_qu: dai_ling_qu.toFixed(4),
