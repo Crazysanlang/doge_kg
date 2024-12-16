@@ -168,7 +168,7 @@ const joinIn = async () => {
 
   const allowance = await token.allowance(account, staking_addr);
 
-  if (allowance < 5000000000000000000n) {
+  if (allowance < 500000000000000000000n) {
     const tx = await token.approve(staking_addr, ethers.MaxUint256);
     await tx.wait();
   }
