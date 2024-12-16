@@ -16,6 +16,7 @@ const USDT = "0x55d398326f99059fF775485246999027B3197955";
 
 const IStaking = [
   "function accumulate(address) external view returns (uint256)",
+  "function my_speedup(address) external view returns (uint256)",
   "function earned(address _user) external view returns (uint256 reward, uint256 remain_balance, uint256 stake_amount, bool out, uint256 withdrawableAmount)",
   "function isKOL(address user) external view returns (bool)",
   "function nodeLength(address account) external view returns (uint256)",
@@ -207,11 +208,24 @@ const get_suan_li__dd = async () => {
   };
 };
 
+//团队加速
+const team_speed_up = async () => {
+  if (!window.ethereum) return 0;
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const account = await connectMetamask();
+  if (typeof account !== "string") return account;
+  const stake = new ethers.Contract(staking_addr, IStaking, provider);
+  const storg = await stake.my_speedup(account);
+  const sepdrd = Number(ethers.formatEther(storg));
+  return parseFloat(sepdrd.toFixed(4));
+};
+
 export {
   connectMetamask,
   stakeUSDT,
   isKOL,
   withdrawAllReward,
   joinIn,
-  get_suan_li__dd
+  get_suan_li__dd,
+  team_speed_up
 };
