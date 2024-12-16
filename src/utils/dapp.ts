@@ -196,9 +196,20 @@ const get_suan_li__dd = async () => {
   const cap = Number(ethers.formatEther(bal.stake_amount * 2n));
   const dai_ling_qu = Number(ethers.formatEther(bal.reward));
   const liu_shui_qu = Number(ethers.formatEther(bal.withdrawableAmount));
-  const yi_ling_qu =
-    cap - Number(ethers.formatEther(storg.balance)) + dai_ling_qu + liu_shui_qu;
   const dongtai = Number(ethers.formatEther(accum));
+  const yi_ling_qu =
+    cap -
+    Number(ethers.formatEther(storg.balance)) +
+    dai_ling_qu +
+    liu_shui_qu -
+    dongtai;
+  console.log({
+    qq: "qq",
+    cap,
+    dai_ling_qu,
+    liu_shui_qu,
+    balance: Number(ethers.formatEther(storg.balance))
+  });
   return {
     cap: parseFloat(cap.toFixed(4)),
     dai_ling_qu: parseFloat((dai_ling_qu - dongtai).toFixed(4)),
