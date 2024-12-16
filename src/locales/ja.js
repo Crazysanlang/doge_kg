@@ -47,6 +47,7 @@ export default {
   team_number: "チーム人数",
   // チームレベル
   team_level: "チームレベル",
+  team_acceleration: "チーム加速",
   // チームパフォーマンス
   team_performance2: "チームパフォーマンス",
   // アドレス

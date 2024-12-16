@@ -49,6 +49,8 @@ export default {
   team_number: "团队人数",
   // 团队级别
   team_level: "团队级别",
+  // 团队加速
+  team_acceleration: "团队加速",
   // 团队绩效
   team_performance2: "团队绩效",
   // 地址
