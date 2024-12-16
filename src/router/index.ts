@@ -26,7 +26,8 @@ router.beforeEach((to: toRouteType, from, next) => {
   // 路由缓存
   // useCachedViewStoreHook().addCachedView(to);
   // 页面 title
-  setPageTitle(to.meta.title);
+  console.log(to.meta)
+  setPageTitle(to.meta?.title?.value);
   next();
 });
 
