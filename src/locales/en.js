@@ -49,6 +49,7 @@ export default {
   team_number: "Team Size",
   // 团队级别
   team_level: "Team Level",
+  team_acceleration: "Team Acceleration",
   // 团队绩效
   team_performance2: "Team Performance",
   // 地址

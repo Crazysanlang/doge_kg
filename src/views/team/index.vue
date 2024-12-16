@@ -4,6 +4,7 @@ import { ref, onMounted } from "vue";
 import { formatAddr, handleCopy } from "@/utils";
 import { useUserStore } from "@/store/modules/user";
 import { http } from "@/utils/http";
+import { team_speed_up } from "@/utils/dapp"
 
 const userStore = useUserStore();
 let linkAdress = ref("");
@@ -20,14 +21,16 @@ function queryData() {
     params: { address: userStore.address }
   }
   http.request(params).then((res) => {
-    console.log("🚀 ~ http.request ~ res:", res)
     list.value = res.tables
     pagaData.value = res
   });
 }
-onMounted(() => {
+const teamAcceleration = ref(0);
+onMounted(async () => {
   renderlink();
   queryData();
+  const res = await team_speed_up();
+  teamAcceleration.value = res
 });
 </script>
 
@@ -73,8 +76,8 @@ onMounted(() => {
       <div class="flex items-center justify-center">
         <img src="../../assets/team4.png" alt="" />
         <div class="text">
-          <div>{{ $t('team_level') }}</div>
-          <div>{{ pagaData.tuan_dui_ji_bie || '-' }}</div>
+          <div>{{ $t('team_acceleration') }}</div>
+          <div>{{ teamAcceleration }}</div>
         </div>
       </div>
     </div>
