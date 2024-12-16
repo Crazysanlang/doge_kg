@@ -1,29 +1,26 @@
 <script setup lang="ts" name="Tools">
-import { reactive } from "vue";
+import { onMounted, ref } from "vue";
 import { showFailToast, showSuccessToast } from "vant";
 import "vant/es/toast/style";
-
-const showList: string[] = reactive([]);
-
-const handleSuccessReq = async () => {
-  showSuccessToast("请求成功");
-};
-const handleErrorReq = () => {};
+import { isKOL } from "@/utils/dapp";
+const isShequ = ref(false);
+onMounted(async () => {
+  console.log("🚀 ~ onMounted ~ isShequ:", isShequ.value)
+  isShequ.value = await isKOL();
+  console.log("🚀 ~ onMounted ~ isShequ.value:11111", isShequ.value)
+});
 </script>
 
 <template>
   <div class="container">
-    <div class="title">社区介绍</div>
-    <div class="desc">
-      dog king是一个真正dao社区自治运营的去中心化交易平台，
-      根据底池的1％自由升级社区.成为后可享受散下所有业绩的福利。
-    </div>
+    <div class="title">{{ $t('community_introduction') }}</div>
+    <div class="desc">{{ $t('dog_king') }}</div>
     <div class="flex items-center justify-between upgrad">
       <div class="flex flex-wrap content-center justify-center block">
         <div class="unit">$</div>
         <div class="money">6</div>
       </div>
-      <div class="upgradeTxt">升级社区</div>
+      <div class="upgradeTxt">{{ $t('upgrade_community') }}</div>
       <div class="arrow">
         <span class="arrowRight"></span>
         <span class="arrowRight"></span>
