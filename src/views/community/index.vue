@@ -98,6 +98,7 @@ const handleUpgrad = async () => {
   }
   .arrow {
     margin-right: 62px;
+    white-space: nowrap;
   }
   .arrowRight {
     display: inline-block;
