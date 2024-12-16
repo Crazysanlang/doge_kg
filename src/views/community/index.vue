@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import "vant/es/toast/style";
 import { isKOL, joinIn } from "@/utils/dapp";
+import ShequDoge from "@/assets/shequDoge.png";
 const isShequ = ref(false);
 onMounted(async () => {
   isShequ.value = await isKOL();
@@ -17,22 +18,35 @@ const handleUpgrad = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="title">{{ $t("community_introduction") }}</div>
-    <div class="desc">{{ $t("dog_king") }}</div>
-    <div class="flex items-center justify-between upgrad" @click="handleUpgrad">
-      <div class="flex flex-wrap content-center justify-center block">
-        <div class="unit">$</div>
-        <div class="money">6</div>
-      </div>
-      <div class="upgradeTxt">{{ $t("upgrade_community") }}</div>
-      <div class="arrow">
-        <span class="arrowRight"></span>
-        <span class="arrowRight"></span>
-        <span class="arrowRight"></span>
+    <template v-if="!isShequ">
+    <div class="container">
+      <div class="title">{{ $t("community_introduction") }}</div>
+      <div class="desc">{{ $t("dog_king") }}</div>
+      <div
+        class="flex items-center justify-between upgrad"
+        @click="handleUpgrad"
+      >
+        <div class="flex flex-wrap content-center justify-center block">
+          <div class="unit">$</div>
+          <div class="money">6</div>
+        </div>
+        <div class="upgradeTxt">{{ $t("upgrade_community") }}</div>
+        <div class="arrow">
+          <span class="arrowRight"></span>
+          <span class="arrowRight"></span>
+          <span class="arrowRight"></span>
+        </div>
       </div>
     </div>
-  </div>
+  </template>
+  <template v-else>
+    <div class="container2">
+      <div class="shadowbg">
+        <div>已是社区</div>
+        <van-image width="100%" height="100%" :src="ShequDoge" />
+      </div>
+    </div>
+  </template>
 </template>
 <style scoped lang="less">
 .container {
@@ -42,6 +56,32 @@ const handleUpgrad = async () => {
   background: url("../../assets/community_bg.png") no-repeat;
   background-size: cover;
   background-position: top center;
+}
+.container2 {
+  color: #ffffff;
+  min-height: 100vh;
+  // background: #000000;
+  // background: url("../../assets/shequBg.png") no-repeat;
+  // background-size: contain;
+  // background-position: top center;
+  .shadowbg {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: 1px solid red;
+    box-sizing: border-box;
+    // height: 100vh;
+    background: url("../../assets/shequBg.png") no-repeat;
+    background-size: contain;
+    background-position: top center;
+    div{
+      font-weight: 400;
+      font-size: 36px;
+      color: #FFFFFF;
+      text-align: center;
+      padding-bottom: 50px;
+    }
+  }
 }
 .title {
   font-weight: bold;
