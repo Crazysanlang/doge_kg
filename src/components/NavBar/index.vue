@@ -96,7 +96,7 @@ onMounted(() => {
         {{ $t("link_wallet") }}
       </button>
       <button class="connect whitespace-nowrap" v-else>
-        {{ userStore.address.substring(0, 6) }}...
+        {{ (userStore.address || '').substring(0, 6) }}...
       </button>
     </div>
   </div>
