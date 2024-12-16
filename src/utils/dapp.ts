@@ -189,17 +189,20 @@ const get_suan_li__dd = async () => {
   const bal = await stake.earned(account);
 
   const storg = await stake.userReward(account);
+  const accum = await stake.accumulate(account);
 
   const cap = Number(ethers.formatEther(bal.stake_amount * 2n));
   const dai_ling_qu = Number(ethers.formatEther(bal.reward));
   const liu_shui_qu = Number(ethers.formatEther(bal.withdrawableAmount));
   const yi_ling_qu =
     cap - Number(ethers.formatEther(storg.balance)) + dai_ling_qu;
+  const dongtai = Number(ethers.formatEther(accum));
   return {
-    cap: cap.toFixed(4),
-    dai_ling_qu: dai_ling_qu.toFixed(4),
-    liu_shui_qu: liu_shui_qu.toFixed(4),
-    yi_ling_qu: yi_ling_qu.toFixed(4)
+    cap: parseFloat(cap.toFixed(4)),
+    dai_ling_qu: parseFloat((dai_ling_qu - dongtai).toFixed(4)),
+    liu_shui_qu: parseFloat(liu_shui_qu.toFixed(4)),
+    yi_ling_qu: parseFloat(yi_ling_qu.toFixed(4)),
+    dongtai: parseFloat(dongtai.toFixed(4))
   };
 };
 
