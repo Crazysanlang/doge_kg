@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import closeIcon from "@/assets/closeIcon.png";
-import { navigateto } from "@/utils/index";
+import { navigateto,formatAddr } from "@/utils/index";
 import { showToast } from "vant";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
@@ -76,6 +76,7 @@ async function handleLink() {
 onMounted(() => {
   userStore.login();
 })
+
 </script>
 
 <template>
@@ -96,7 +97,7 @@ onMounted(() => {
         {{ $t("link_wallet") }}
       </button>
       <button class="connect whitespace-nowrap" v-else>
-        {{ (userStore.address || '').substring(0, 6) }}...
+        {{ formatAddr(userStore.address)}}
       </button>
     </div>
   </div>
