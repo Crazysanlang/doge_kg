@@ -1,8 +1,8 @@
-import { BrowserProvider, Eip1193Provider, ethers } from "ethers";
+import { BrowserProvider, ethers } from "ethers";
 
 declare global {
   interface Window {
-    ethereum: Eip1193Provider & BrowserProvider;
+    ethereum: BrowserProvider;
   }
 }
 const staking_addr = "0xF0B86EDe76D7943d972D40926C2949F3c0dE269c";
