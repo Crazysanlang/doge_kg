@@ -207,21 +207,25 @@ onMounted(() => {
   }
 }
 .router {
-  padding-top: 357px;
+  // padding-top: 357px;
+  top: 20%;
   margin: 0 35px;
-
+  position: absolute;
+  z-index: 2;
   .routerItem {
     font-weight: bold;
     font-size: 32px;
     color: #000000;
     height: 81px;
     line-height: 81px;
-    padding-left: 42px;
+    // padding-left: 42px;
+    text-align: center;
     box-sizing: border-box;
     border-radius: 10px 10px 10px 10px;
     border: 2px solid #040608;
     margin-bottom: 65px;
     transition: all 0.3s;
+    padding: 0 10px;
     &.active {
       background: #000000;
       font-weight: bold;
@@ -248,6 +252,7 @@ onMounted(() => {
     position: absolute;
     left: 0;
     bottom: -1px;
+    z-index: 1;
   }
 }
 .box {
