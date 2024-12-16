@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "Community",
         component: () => import("@/views/community/index.vue"),
         meta: {
-          title: "我的社区"
+          title: computed(() => t("my_community"))
         }
       },
       {
@@ -35,8 +35,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "Team",
         component: () => import("@/views/team/index.vue"),
         meta: {
-          title: "我的团队",
-          noCache: true
+          title: computed(() => t("my_team"))
         }
       }
     ]

@@ -17,10 +17,8 @@ export const useUserStore = defineStore({
     async login() {
       try {
         const address = await connectMetamask();
-        console.log("🚀 ~ login ~ address:", address)
         this.setAddress(address);
         const inviteCode = getInviteCode();
-        console.log("🚀 ~ login ~ inviteCode:", inviteCode);
         if (inviteCode) {
           this.setInviteCode(inviteCode);
         }

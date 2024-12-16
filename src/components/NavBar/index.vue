@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import closeIcon from "@/assets/closeIcon.png";
 import { navigateto } from "@/utils/index";
 import { showToast } from "vant";
@@ -41,8 +41,20 @@ const showCenter = ref(false);
 watch(
   () => router.currentRoute.value,
   () => {
+
     title.value = router.currentRoute.value.meta?.title;
     routerName.value = router.currentRoute.value.name;
+  }
+);
+// 监听语言切换
+watch(
+  () => locale.value,
+  val => {
+    console.log("🚀 ~ watch ~ val:", val);
+    console.log("🚀 ~ watch ~ val:", router.currentRoute.value);
+
+    title.value = router.currentRoute.value.meta?.title;
+
   }
 );
 
@@ -61,6 +73,9 @@ watch(
 async function handleLink() {
   await userStore.login();
 }
+onMounted(() => {
+  userStore.login();
+})
 </script>
 
 <template>
@@ -106,14 +121,14 @@ async function handleLink() {
           :class="routerName == 'Team' ? 'active' : ''"
           @click="handleNavigateto('Team')"
         >
-          我的团队
+        {{ $t("my_team") }}
         </div>
         <div
           class="routerItem"
           :class="routerName == 'Community' ? 'active' : ''"
           @click="handleNavigateto('Community')"
         >
-          我的社区
+        {{ $t("my_community") }}
         </div>
       </div>
       <div class="bottomBg"></div>

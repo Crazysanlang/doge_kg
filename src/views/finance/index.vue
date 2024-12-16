@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { showToast } from "vant";
-// import "vant/lib/toast/style";
+import { showToast, showNotify } from "vant";
+import "vant/lib/toast/style";
+import "vant/lib/notify/style";
 import Banner1 from "../../assets/banner1.png";
 import { ref, onMounted } from "vue";
 import { stakeUSDT, get_suan_li__dd, withdrawAllReward } from "@/utils/dapp";
 import { useUserStore } from "@/store/modules/user";
 import { showConfirmDialog } from "vant";
+import i18n from "@/locales/index";
+import { computed } from "vue";
+const {
+  global: { locale, t }
+} = i18n;
 const userStore = useUserStore();
 const proStyle = ref({
   width: "0%",
@@ -16,16 +22,17 @@ const floatStyle = ref({
   transition: "all 3s ease-out",
   opacity: 0
 });
-const placeholder = ref("单次投资200usdt以上");
+const placeholder = ref(t('invest_more'));
 const show = ref(false);
 const stakeValue = ref("");
 const handleStake = async () => {
   if (!stakeValue.value) {
-    showToast("请输入金额");
+    // showToast("请输入金额");
+    showNotify({ type: 'warning', message: t('please_input') });
     return;
   }
   if (Number(stakeValue.value) < 200) {
-    showToast("单次投资200usdt以上");
+    showNotify({ type: 'warning', message: t('invest_more') });
     return;
   }
   const res = await stakeUSDT(stakeValue.value, userStore.inviteCode);
@@ -58,14 +65,15 @@ onMounted(async () => {
 });
 const handleWithDraw = async () => {
   showConfirmDialog({
-    title: "温馨提示",
-    message: "确定提现吗？"
+    title: t('warm_tips'),
+    message: t('confirm_withdrawal'),
+    width: "100%"
   }).then(async () => {
     const res = await withdrawAllReward();
     if (res.error) {
       showToast(res.msg);
     } else {
-      showToast("提现成功");
+      showToast(t('withdrawal_success'));
     }
   });
 };
@@ -76,15 +84,13 @@ const handleWithDraw = async () => {
     <div class="banner">
       <van-image width="100%" height="100%" :src="Banner1" />
       <div class="txt">
-        <div class="title">我的理财</div>
-        <div class="desc">
-          资金投入后，90%资金回流比值自动打入黑洞，将获得投入资金的2倍额度。
-        </div>
+        <div class="title">{{ $t('my_investment') }}</div>
+        <div class="desc">{{ $t('fund_input') }}</div>
       </div>
     </div>
 
     <div class="progress">
-      <div class="pTit">释放进度</div>
+      <div class="pTit">{{ $t('release_progress') }}</div>
       <div class="flex items-center justify-start">
         <div class="pro">
           <div
@@ -115,17 +121,17 @@ const handleWithDraw = async () => {
         :maxlength="10"
         @blur="show = false"
       />
-      <button class="addBtn" @click="handleStake">添加理财</button>
+      <button class="addBtn" @click="handleStake">{{ $t('add_investment') }}</button>
     </div>
     <div class="withdraw">
-      <div class="leftTop">可提额度</div>
+      <div class="leftTop">{{ $t('quota_withdrawal') }}</div>
       <div class="flex items-center justify-between">
         <div class="wLeft">
-          <div>静动态：{{ pageData.dai_ling_qu }}</div>
-          <div>流水：{{ pageData.liu_shui_qu }}</div>
+          <div>{{ $t('static_dynamic') }}：{{ pageData.dai_ling_qu }}</div>
+          <div>{{ $t('water_flow') }}：{{ pageData.liu_shui_qu }}</div>
         </div>
         <div class="wRight">
-          <button @click="handleWithDraw">打包提现</button>
+          <button @click="handleWithDraw">{{ $t('pack_withdrawal') }}</button>
           <!-- <div>积累提现：$50065</div> -->
         </div>
       </div>

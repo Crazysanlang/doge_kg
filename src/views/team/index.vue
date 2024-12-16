@@ -11,14 +11,7 @@ function renderlink() {
   const url = window.location.origin;
   linkAdress.value = url + "/?invite=" + userStore.address;
 }
-const list = ref([
-  {
-    addr: "12800000000000000",
-    tui_jian_ren_shu: 24,
-    tui_jian_ren_shu_zong: 24,
-    team_ye_ji_hao: "$24"
-  }
-]);
+const list = ref([]);
 const pagaData = ref({});
 function queryData() {
   const params = {
@@ -43,55 +36,55 @@ onMounted(() => {
     <div class="banner">
       <van-image width="100%" height="100%" :src="Banner2" />
       <div class="txt">
-        <div class="title">我的团队</div>
+        <div class="title">{{ $t('my_team') }}</div>
         <div class="desc">
-          您可以在此处绑定邀请关系，也可以复制邀请链接邀请好友加入。当您和您的朋友每天都有新的货币持有量时，您可以获得促销奖励。
+          {{ $t('bind_invitation') }}
         </div>
       </div>
     </div>
-    <div class="inviteTit">邀请链接</div>
+    <div class="inviteTit">{{ $t('invitation_link') }}</div>
     <div class="flex items-center justify-center inviteBox">
       <div>{{ linkAdress }}</div>
       <img @click="handleCopy(linkAdress)" src="../../assets/copy.png" alt="" />
     </div>
-    <div class="tips">参与dog king低于$200，无邀请权益</div>
+    <div class="tips">{{ $t('participate_dog') }}</div>
     <div class="flex justify-start flexbox">
       <div class="flex items-center justify-center">
         <img src="../../assets/team1.png" alt="" />
         <div class="text">
-          <div>推荐人数</div>
+          <div>{{ $t('recommend_number') }}</div>
           <div>{{ pagaData.tui_jian_ren_shu || '-' }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team2.png" alt="" />
         <div class="text">
-          <div>团队业绩</div>
+          <div>{{ $t('team_performance') }}</div>
           <div>{{ pagaData.tuan_dui_ye_ji || '-' }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team3.png" alt="" />
         <div class="text">
-          <div>团队人数</div>
+          <div>{{ $t('team_number') }}</div>
           <div>{{ pagaData.tuan_dui_ren_shu || '-' }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team4.png" alt="" />
         <div class="text">
-          <div>团队级别</div>
+          <div>{{ $t('team_level') }}</div>
           <div>{{ pagaData.tuan_dui_ji_bie || '-' }}</div>
         </div>
       </div>
     </div>
-    <div class="tdjx">团队绩效</div>
+    <div class="tdjx">{{ $t('team_performance2') }}</div>
     <div class="teamList">
       <div class="tHeader">
-        <div class="">地址</div>
-        <div class="">推荐</div>
-        <div class="">团队</div>
-        <div class="">业绩</div>
+        <div class="">{{ $t('address') }}</div>
+        <div class="">{{ $t('recommend') }}</div>
+        <div class="">{{ $t('team') }}</div>
+        <div class="">{{ $t('performance') }}</div>
       </div>
       <div class="tBody">
         <div class="list" v-for="(item, index) in list" :key="index">
@@ -192,6 +185,8 @@ onMounted(() => {
 }
 .teamList {
   margin: 20px 36px;
+  min-height: 300px;
+  
 }
 
 .tHeader {
