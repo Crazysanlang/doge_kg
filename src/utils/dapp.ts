@@ -93,17 +93,17 @@ const stakeUSDT = async (amount: string, parent = null) => {
 
   const allowance = await token.allowance(account, staking_addr);
 
-  if (allowance.lt(value)) {
-    const tx = await token.approve(staking_addr, ethers.constants.MaxUint256);
+  if (allowance < value) {
+    const tx = await token.approve(staking_addr, ethers.MaxUint256);
     await tx.wait();
   }
 
   const router = new ethers.Contract(ROUTER, swapABI, provider);
-  const [, amount1] = await router.getAmountsOut(value.mul("42").div("100"), [
+  const [, amount1] = await router.getAmountsOut((value * 35n) / 100n, [
     USDT,
     dog_addr
   ]);
-  const pMin = amount1.mul(98).div(100);
+  const pMin = (amount1 * 98n) / 100n;
 
   let tx;
   if (parent) {
