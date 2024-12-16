@@ -1,13 +1,12 @@
-<script setup lang="ts" name="Demo">
+<script setup lang="ts">
 import { showToast } from "vant";
-import 'vant/lib/toast/style'
-import { showNotify } from 'vant';
+// import "vant/lib/toast/style";
 import Banner1 from "../../assets/banner1.png";
-import { reactive, ref, onMounted } from "vue";
-import { stakeUSDT, get_suan_li__dd } from "@/utils/dapp";
+import { ref, onMounted } from "vue";
+import { stakeUSDT, get_suan_li__dd, withdrawAllReward } from "@/utils/dapp";
 import { useUserStore } from "@/store/modules/user";
+import { showConfirmDialog } from "vant";
 const userStore = useUserStore();
-const contentList = reactive([]);
 const proStyle = ref({
   width: "0%",
   transition: "all 3s ease-out"
@@ -34,22 +33,42 @@ const handleStake = async () => {
     showToast(res.msg);
   }
 };
+const pageData = ref({});
+const jltx = ref(0);
 onMounted(async () => {
+  const res = await get_suan_li__dd();
+  pageData.value = res;
+  console.log("🚀 ~ onMounted ~ res:", res);
+  const progress = `${(res.yi_ling_qu / res.cap) * 100}%`;
+
   setTimeout(() => {
     proStyle.value = {
-      width: "100%",
+      width: progress,
       transition: "all 3s ease-out"
       // backgroundSize: "40% 100%"
     };
     floatStyle.value = {
-      left: "100%",
+      left: progress,
       transition: "all 3s ease-out",
       opacity: 1
     };
-  }, 2000);
-  const res = await get_suan_li__dd()
-  console.log("🚀 ~ onMounted ~ res:", res)
+  }, 1000);
+  // const res2 = await withdrawAllReward();
+  // jltx.value = res2;
 });
+const handleWithDraw = async () => {
+  showConfirmDialog({
+    title: "温馨提示",
+    message: "确定提现吗？"
+  }).then(async () => {
+    const res = await withdrawAllReward();
+    if (res.error) {
+      showToast(res.msg);
+    } else {
+      showToast("提现成功");
+    }
+  });
+};
 </script>
 
 <template>
@@ -72,9 +91,11 @@ onMounted(async () => {
             class="flex items-center justify-between mask"
             :style="proStyle"
           ></div>
-          <div class="floatNum" :style="floatStyle">$95</div>
+          <div class="floatNum" :style="floatStyle">
+            {{ pageData.yi_ling_qu }}
+          </div>
         </div>
-        <div class="allNum">$100</div>
+        <div class="allNum">{{ pageData.cap }}</div>
       </div>
     </div>
     <div class="flex items-center justify-between add">
@@ -100,12 +121,12 @@ onMounted(async () => {
       <div class="leftTop">可提额度</div>
       <div class="flex items-center justify-between">
         <div class="wLeft">
-          <div>静动态：$3450.00</div>
-          <div>流水：$3450.00</div>
+          <div>静动态：{{ pageData.dai_ling_qu }}</div>
+          <div>流水：{{ pageData.liu_shui_qu }}</div>
         </div>
         <div class="wRight">
-          <button>打包提现</button>
-          <div>积累提现：$50065</div>
+          <button @click="handleWithDraw">打包提现</button>
+          <!-- <div>积累提现：$50065</div> -->
         </div>
       </div>
     </div>
@@ -174,7 +195,8 @@ onMounted(async () => {
     }
     .floatNum {
       position: absolute;
-      width: 66px;
+      min-width: 66px;
+      padding: 0 10px;
       height: 60px;
       text-align: center;
       // line-height: 60px;
@@ -182,7 +204,8 @@ onMounted(async () => {
       left: 0;
       z-index: 2;
       background-image: url("../../assets/pro.png");
-      background-size: contain;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       font-weight: 800;
       font-size: 28px;
       color: #f4d144;

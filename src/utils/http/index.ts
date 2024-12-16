@@ -51,6 +51,7 @@ class Http {
       (response: AxiosResponse) => {
         NProgress.done();
         const { code, data, err } = response.data;
+        console.log("🚀 ~ Http ~ httpInterceptorsResponse ~ response.data:", response.data)
         // 判断请求是否成功
         // const isSuccess =
         //   data &&

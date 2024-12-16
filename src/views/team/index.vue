@@ -19,6 +19,7 @@ const list = ref([
     team_ye_ji_hao: "$24"
   }
 ]);
+const pagaData = ref({});
 function queryData() {
   const params = {
     url: "https://dog-king.com/api/info",
@@ -27,7 +28,8 @@ function queryData() {
   }
   http.request(params).then((res) => {
     console.log("🚀 ~ http.request ~ res:", res)
-    
+    list.value = res.tables
+    pagaData.value = res
   });
 }
 onMounted(() => {
@@ -58,28 +60,28 @@ onMounted(() => {
         <img src="../../assets/team1.png" alt="" />
         <div class="text">
           <div>推荐人数</div>
-          <div>24</div>
+          <div>{{ pagaData.tui_jian_ren_shu || '-' }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team2.png" alt="" />
         <div class="text">
           <div>团队业绩</div>
-          <div>$24</div>
+          <div>{{ pagaData.tuan_dui_ye_ji || '-' }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team3.png" alt="" />
         <div class="text">
           <div>团队人数</div>
-          <div>375</div>
+          <div>{{ pagaData.tuan_dui_ren_shu || '-' }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team4.png" alt="" />
         <div class="text">
-          <div>团队加速</div>
-          <div>$812</div>
+          <div>团队级别</div>
+          <div>{{ pagaData.tuan_dui_ji_bie || '-' }}</div>
         </div>
       </div>
     </div>
