@@ -1,26 +1,31 @@
 <script setup lang="ts" name="Tools">
 import { onMounted, ref } from "vue";
-import { showFailToast, showSuccessToast } from "vant";
 import "vant/es/toast/style";
-import { isKOL } from "@/utils/dapp";
+import { isKOL, joinIn } from "@/utils/dapp";
 const isShequ = ref(false);
 onMounted(async () => {
-  console.log("🚀 ~ onMounted ~ isShequ:", isShequ.value)
   isShequ.value = await isKOL();
-  console.log("🚀 ~ onMounted ~ isShequ.value:11111", isShequ.value)
 });
+const handleUpgrad = async () => {
+  try {
+    await joinIn();
+    isShequ.value = await isKOL();
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
   <div class="container">
-    <div class="title">{{ $t('community_introduction') }}</div>
-    <div class="desc">{{ $t('dog_king') }}</div>
-    <div class="flex items-center justify-between upgrad">
+    <div class="title">{{ $t("community_introduction") }}</div>
+    <div class="desc">{{ $t("dog_king") }}</div>
+    <div class="flex items-center justify-between upgrad" @click="handleUpgrad">
       <div class="flex flex-wrap content-center justify-center block">
         <div class="unit">$</div>
         <div class="money">6</div>
       </div>
-      <div class="upgradeTxt">{{ $t('upgrade_community') }}</div>
+      <div class="upgradeTxt">{{ $t("upgrade_community") }}</div>
       <div class="arrow">
         <span class="arrowRight"></span>
         <span class="arrowRight"></span>
