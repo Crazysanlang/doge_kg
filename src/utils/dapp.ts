@@ -6,8 +6,8 @@ declare global {
   }
 }
 
-const staking_addr = "0x3f1Eb8c7E1DB55c2A0B32A9Ac79579c135f46472";
-const dog_addr = "0xeC5Ef6bc35C216f7F3F83F2BF70C2ecD348D25bE";
+const staking_addr = "0xe744BBbe6C4A8572de4f858d8FD40D2E7DC052A7";
+const dog_addr = "0xcbb54A40D98160e9f689942267c2C9B2099D6b02";
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
 // const ADDRESS0 = '0x0000000000000000000000000000000000000000'
@@ -208,6 +208,7 @@ const get_suan_li__dd = async () => {
     cap,
     dai_ling_qu,
     liu_shui_qu,
+    dongtai,
     balance: Number(ethers.formatEther(storg.balance))
   });
   return {
