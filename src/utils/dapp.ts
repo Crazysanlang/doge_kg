@@ -5,8 +5,9 @@ declare global {
     ethereum: BrowserProvider;
   }
 }
-const staking_addr = "0xF0B86EDe76D7943d972D40926C2949F3c0dE269c";
-const dog_addr = "0xE4C310b9a1Fa747bb649cD76EaD58D94EE75123C";
+
+const staking_addr = "0xa09CDE7786d36910C296D23c60AC0A812019435D";
+const dog_addr = "0xE678aa4DfA9C0880D84786F651BC2263d6FF2676";
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
 // const ADDRESS0 = '0x0000000000000000000000000000000000000000'
