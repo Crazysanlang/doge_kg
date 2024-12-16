@@ -28,6 +28,8 @@ export default {
   quota_withdrawal: "可提额度",
   // 静动态
   static_dynamic: "静动态",
+  static: "静态",
+  dynamic: "动态",
   // 流水
   water_flow: "流水",
   // 打包提现
@@ -64,5 +66,9 @@ export default {
   dog_king:
     "dog king是一个真正dao社区自治运营的去中心化交易平台，根据底池的1％自由升级社区.成为后可享受散下所有业绩的福利。",
   // 升级社区
-  upgrade_community: "升级社区"
+  upgrade_community: "升级社区",
+  // 操作成功
+  operation_success: "操作成功",
+  // 操作失败
+  operation_failure: "操作失败"
 };

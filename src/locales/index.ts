@@ -7,8 +7,9 @@ import en from "./en";
 import ja from "./ja.js";
 import ko from "./ko";
 import zh from "./zh-cn";
+import { getCookie } from "@/utils"
 export default createI18n({
-  locale: "en",
+  locale: getCookie("lang") || "zh",
   messages: {
     en: {
       ...en,

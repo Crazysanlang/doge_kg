@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import closeIcon from "@/assets/closeIcon.png";
-import { navigateto,formatAddr } from "@/utils/index";
+import { navigateto, formatAddr, getCookie, setCookie } from "@/utils/index";
 import { showToast } from "vant";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from "@/store/modules/user";
+import i18n from "@/locales/index";
+const {
+  global: { t }
+} = i18n;
 const userStore = useUserStore();
 const router = useRouter();
 // 获取当前路由name
@@ -14,25 +18,13 @@ const routerName = ref(useRouter().currentRoute.value.name);
 const title = ref(useRouter().currentRoute.value.meta?.title);
 // 路由变化时title 动态取值
 
-
 const { locale } = useI18n();
+console.log("🚀 ~ locale:", locale.value);
 const onClickLanague = (lang: any) => {
-  switch (lang) {
-    case "en-US":
-      locale.value = "en";
-      break;
-    case "zh-CN":
-      locale.value = "zh";
-      break;
-    case "ja-JP":
-      locale.value = "ja";
-      break;
-    case "ko-KR":
-      locale.value = "ko";
-      break;
-  }
+  locale.value = lang;
+  setCookie("lang", "en");
   showCenter.value = false;
-  showToast("success");
+  showToast(t("operation_success"));
 };
 
 const showLeft = ref(false);
@@ -41,7 +33,6 @@ const showCenter = ref(false);
 watch(
   () => router.currentRoute.value,
   () => {
-
     title.value = router.currentRoute.value.meta?.title;
     routerName.value = router.currentRoute.value.name;
   }
@@ -50,11 +41,7 @@ watch(
 watch(
   () => locale.value,
   val => {
-    console.log("🚀 ~ watch ~ val:", val);
-    console.log("🚀 ~ watch ~ val:", router.currentRoute.value);
-
     title.value = router.currentRoute.value.meta?.title;
-
   }
 );
 
@@ -63,7 +50,7 @@ const handleNavigateto = (name: string) => {
   showLeft.value = false;
 };
 const isLogin = computed(() => userStore.isLogin);
-// 监听userstore 的address 变化 
+// 监听userstore 的address 变化
 watch(
   () => isLogin.value,
   val => {
@@ -75,8 +62,7 @@ async function handleLink() {
 }
 onMounted(() => {
   userStore.login();
-})
-
+});
 </script>
 
 <template>
@@ -97,11 +83,11 @@ onMounted(() => {
         {{ $t("link_wallet") }}
       </button>
       <button class="connect whitespace-nowrap" v-else>
-        {{ formatAddr(userStore.address)}}
+        {{ formatAddr(userStore.address) }}
       </button>
     </div>
   </div>
-  <van-popup 
+  <van-popup
     v-model:show="showLeft"
     position="left"
     :closeable="true"
@@ -122,14 +108,14 @@ onMounted(() => {
           :class="routerName == 'Team' ? 'active' : ''"
           @click="handleNavigateto('Team')"
         >
-        {{ $t("my_team") }}
+          {{ $t("my_team") }}
         </div>
         <div
           class="routerItem"
           :class="routerName == 'Community' ? 'active' : ''"
           @click="handleNavigateto('Community')"
         >
-        {{ $t("my_community") }}
+          {{ $t("my_community") }}
         </div>
       </div>
       <div class="bottomBg"></div>
@@ -143,25 +129,25 @@ onMounted(() => {
   >
     <div class="langue">
       <div
-        @click="onClickLanague('en-Us')"
+        @click="onClickLanague('en')"
         :class="locale == 'en' ? 'active' : ''"
       >
         <img src="../../assets/en.png" alt="" /><span> English</span>
       </div>
       <div
-        @click="onClickLanague('zh-CN')"
+        @click="onClickLanague('zh')"
         :class="locale == 'zh' ? 'active' : ''"
       >
         <img src="../../assets/china.png" alt="" /><span>中文</span>
       </div>
       <div
-        @click="onClickLanague('ja-JP')"
+        @click="onClickLanague('ja')"
         :class="locale == 'ja' ? 'active' : ''"
       >
         <img src="../../assets/ja.png" alt="" /> <span>日本語</span>
       </div>
       <div
-        @click="onClickLanague('ko-KR')"
+        @click="onClickLanague('ko')"
         :class="locale == 'ko' ? 'active' : ''"
       >
         <img src="../../assets/ko.png" alt="" /> <span>한국어</span>
@@ -210,7 +196,9 @@ onMounted(() => {
 .router {
   // padding-top: 357px;
   top: 20%;
-  margin: 0 35px;
+  left: 0;
+  right: 0;
+  margin: 0 34px;
   position: absolute;
   z-index: 2;
   .routerItem {
@@ -219,6 +207,7 @@ onMounted(() => {
     color: #000000;
     height: 81px;
     line-height: 81px;
+    // min-width: 330px;
     // padding-left: 42px;
     text-align: center;
     box-sizing: border-box;

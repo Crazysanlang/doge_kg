@@ -27,6 +27,8 @@ export default {
   quota_withdrawal: "인출 가능 액수",
   // 정적 & 동적
   static_dynamic: "정적 & 동적",
+  static: "정적",
+  dynamic: "동적",
   // 거래 내역
   water_flow: "거래 내역",
   // 패키지 현금인출
@@ -60,5 +62,9 @@ export default {
   // dog king은 진정한 DAO 커뮤니티 자치 운영의 분산 거래소로, 풀의 1%에 따라 커뮤니티를 자유롭게 업그레이드할 수 있습니다. 업그레이드되면 하위 엔터프라이즈의 모든 업적의 혜택을 누릴 수 있습니다.
   dog_king: "dog king은 진정한 DAO 커뮤니티 자치 운영의 분산 거래소로, 풀의 1%에 따라 커뮤니티를 자유롭게 업그레이드할 수 있습니다. 업그레이드되면 하위 엔터프라이즈의 모든 업적의 혜택을 누릴 수 있습니다.",
   // 커뮤니티 업그레이드
-  upgrade_community: "커뮤니티 업그레이드"
+  upgrade_community: "커뮤니티 업그레이드",
+  // 작업 성공
+  operation_success: "작업 성공",
+  // 작업 실패
+  operation_failure: "작업 실패"
 };

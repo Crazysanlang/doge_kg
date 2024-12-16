@@ -27,6 +27,8 @@ export default {
   quota_withdrawal: "引き出し可能額",
   // 静的と動的
   static_dynamic: "静的と動的",
+  static: "静的",
+  dynamic: "動的",
   // 取引履歴
   water_flow: "取引履歴",
   // バッチ引き出し
@@ -61,5 +63,9 @@ export default {
   // プールの1％に基づいてコミュニティを自由にアップグレードできます。アップグレード後、下請けのすべての業績の恩恵を受けることができます。
   dog_king: "dog kingは真のDAOコミュニティ自治運営のデセントラライズド取引所で、プールの1％に基づいてコミュニティを自由にアップグレードできます。アップグレード後、下請けのすべての業績の恩恵を受けることができます。",
   // コミュニティをアップグレード
-  upgrade_community: "コミュニティをアップグレード"
+  upgrade_community: "コミュニティをアップグレード",
+  // 操作成功
+  operation_success: "操作成功",
+  // 操作失敗
+  operation_failure: "操作失敗"
 };

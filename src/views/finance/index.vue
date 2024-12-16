@@ -3,14 +3,13 @@ import { showToast, showNotify } from "vant";
 import "vant/lib/toast/style";
 import "vant/lib/notify/style";
 import Banner1 from "../../assets/banner1.png";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { stakeUSDT, get_suan_li__dd, withdrawAllReward } from "@/utils/dapp";
 import { useUserStore } from "@/store/modules/user";
 import { showConfirmDialog } from "vant";
 import i18n from "@/locales/index";
-import { computed } from "vue";
 const {
-  global: { locale, t }
+  global: { t }
 } = i18n;
 const userStore = useUserStore();
 const proStyle = ref({
@@ -22,13 +21,12 @@ const floatStyle = ref({
   transition: "all 3s ease-out",
   opacity: 0
 });
-const placeholder = ref(t('invest_more'));
+const placeholder = computed(() => t("invest_more"));
 const show = ref(false);
 const stakeValue = ref("");
 const handleStake = async () => {
   if (!stakeValue.value) {
-    // showToast("请输入金额");
-    showNotify({ type: 'warning', message: t('please_input') });
+    showNotify({ type: "warning", message: t("please_input") });
     return;
   }
   // if (Number(stakeValue.value) < 200) {
@@ -38,10 +36,14 @@ const handleStake = async () => {
   const res = await stakeUSDT(stakeValue.value, userStore.inviteCode);
   if (res.error) {
     showToast(res.msg);
+  } else {
+    showToast(t("stake_success"));
+    setTimeout(() => {
+      stakeValue.value = "";
+    }, 1000);
   }
 };
 const pageData = ref({});
-const jltx = ref(0);
 onMounted(async () => {
   const res = await get_suan_li__dd();
   pageData.value = res;
@@ -52,7 +54,6 @@ onMounted(async () => {
     proStyle.value = {
       width: progress,
       transition: "all 3s ease-out"
-      // backgroundSize: "40% 100%"
     };
     floatStyle.value = {
       left: progress,
@@ -60,20 +61,18 @@ onMounted(async () => {
       opacity: 1
     };
   }, 1000);
-  // const res2 = await withdrawAllReward();
-  // jltx.value = res2;
 });
 const handleWithDraw = async () => {
   showConfirmDialog({
-    title: t('warm_tips'),
-    message: t('confirm_withdrawal'),
+    title: t("warm_tips"),
+    message: t("confirm_withdrawal"),
     width: "100%"
   }).then(async () => {
     const res = await withdrawAllReward();
     if (res.error) {
       showToast(res.msg);
     } else {
-      showToast(t('withdrawal_success'));
+      showToast(t("withdrawal_success"));
     }
   });
 };
@@ -84,13 +83,13 @@ const handleWithDraw = async () => {
     <div class="banner">
       <van-image width="100%" height="100%" :src="Banner1" />
       <div class="txt">
-        <div class="title">{{ $t('my_investment') }}</div>
-        <div class="desc">{{ $t('fund_input') }}</div>
+        <div class="title">{{ $t("my_investment") }}</div>
+        <div class="desc">{{ $t("fund_input") }}</div>
       </div>
     </div>
 
     <div class="progress">
-      <div class="pTit">{{ $t('release_progress') }}</div>
+      <div class="pTit">{{ $t("release_progress") }}</div>
       <div class="flex items-center justify-start">
         <div class="pro">
           <div
@@ -121,19 +120,20 @@ const handleWithDraw = async () => {
         :maxlength="10"
         @blur="show = false"
       />
-      <button class="addBtn" @click="handleStake">{{ $t('add_investment') }}</button>
+      <button class="addBtn" @click="handleStake">
+        {{ $t("add_investment") }}
+      </button>
     </div>
-    <div class="withdraw">
-      <div class="leftTop">{{ $t('quota_withdrawal') }}</div>
-      <div class="flex items-center justify-between">
-        <div class="wLeft">
-          <div>{{ $t('static_dynamic') }}：{{ pageData.dai_ling_qu }}</div>
-          <div>{{ $t('water_flow') }}：{{ pageData.liu_shui_qu }}</div>
-        </div>
-        <div class="wRight">
-          <button @click="handleWithDraw">{{ $t('pack_withdrawal') }}</button>
-          <!-- <div>积累提现：$50065</div> -->
-        </div>
+    <div class="withdrawTit">{{ $t("quota_withdrawal") }}</div>
+    <div class="flex items-center justify-between withdraw">
+      <div class="flex content-center wLeft">
+        <div>{{ $t("static") }}：{{ pageData.dai_ling_qu  || '-'}}</div>
+        <div>{{ $t("dynamic") }}：{{ pageData.dongtai  || '-'}}</div>
+        <div>{{ $t("water_flow") }}：{{ pageData.liu_shui_qu  || '-'}}</div>
+      </div>
+      <div class="wRight">
+        <button @click="handleWithDraw">{{ $t("pack_withdrawal") }}</button>
+        <!-- <div>积累提现：$50065</div> -->
       </div>
     </div>
   </div>
@@ -244,16 +244,25 @@ const handleWithDraw = async () => {
     color: #050b18;
   }
 }
+.withdrawTit {
+  margin: 0 35px;
+  margin-top: 85px;
+  font-weight: bold;
+  font-size: 36px;
+  color: #ffffff;
+}
 .withdraw {
   margin: 0 35px;
-  margin-top: 76px;
-  height: 363px;
+  margin-top: 46px;
+  min-height: 310px;
   background: linear-gradient(180deg, #febe2d 0%, #ff8b00 100%);
   border-radius: 20px 20px 20px 20px;
   background-image: url("../../assets/tx_bg.png");
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
+  padding: 0 38px;
+  box-sizing: border-box;
   .leftTop {
     position: absolute;
     top: 0;
@@ -266,27 +275,24 @@ const handleWithDraw = async () => {
     text-align: center;
     padding-right: 20px;
     line-height: 52px;
-    // background: #ffffff;
     background-image: url("../../assets/leftTop.png");
     background-size: contain;
     background-repeat: no-repeat;
   }
-  .flex {
-    padding: 38px;
-    height: 100%;
-    box-sizing: border-box;
-  }
   .wLeft {
+    flex-wrap: wrap;
     div {
+      text-align: left;
+      width: 100%;
       font-weight: bold;
       font-size: 36px;
       color: #ffffff;
-      margin-bottom: 22px;
+      // margin-bottom: 22px;
     }
   }
   .wRight {
     button {
-      width: 206px;
+      min-width: 206px;
       height: 77px;
       background: #ffffff;
       border-radius: 12px 12px 12px 12px;
@@ -296,6 +302,8 @@ const handleWithDraw = async () => {
       text-align: center;
       line-height: 77px;
       margin-bottom: 13px;
+      white-space: nowrap;
+      padding: 0 5px;
     }
     div {
       font-weight: 400;

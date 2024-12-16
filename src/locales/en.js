@@ -27,10 +27,14 @@ export default {
   quota_withdrawal: "Withdrawable Quota",
   // 静动态
   static_dynamic: "Static & Dynamic",
+  // 静态
+  static: "Static",
+  // 动态
+  dynamic: "Dynamic",
   // 流水
   water_flow: "Transactions",
   // 打包提现
-  pack_withdrawal: "Batch Withdrawal",
+  pack_withdrawal: "Withdrawal",
   // 您可以在此处绑定邀请关系，也可以复制邀请链接邀请好友加入。当您和您的朋友每天都有新的货币持有量时，您可以获得促销奖励。
   bind_invitation: "You can bind invitation relationships here, or copy the invitation link to invite friends to join. When you and your friends have new currency holdings every day, you can receive promotional rewards.",
   // 邀请链接
@@ -61,5 +65,9 @@ export default {
   //   根据底池的1％自由升级社区.成为后可享受散下所有业绩的福利。
   dog_king: "dog king is a truly decentralized trading platform operated autonomously by a dao community. You can freely upgrade the community based on 1% of the pool. Once upgraded, you can enjoy the benefits of all performance under your community.",
   // 升级社区
-  upgrade_community: "Upgrade Community"
+  upgrade_community: "Upgrade Community",
+  // Operation successful
+  operation_success: "Operation successful",
+  // Operation failed
+  operation_failure: "Operation failed"
 };

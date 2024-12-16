@@ -1,8 +1,11 @@
 <script setup lang="ts" name="Tools">
 import { onMounted, ref } from "vue";
+import { showToast } from "vant";
 import "vant/es/toast/style";
 import { isKOL, joinIn } from "@/utils/dapp";
 import ShequDoge from "@/assets/shequDoge.png";
+import i18n from "@/locales/index";
+const { global: { t } } = i18n;
 const isShequ = ref(false);
 onMounted(async () => {
   isShequ.value = await isKOL();
@@ -11,6 +14,9 @@ const handleUpgrad = async () => {
   try {
     await joinIn();
     isShequ.value = await isKOL();
+    if (isShequ.value) {
+      showToast(t('operation_success'));
+    }
   } catch (error) {
     console.log(error);
   }
@@ -18,7 +24,7 @@ const handleUpgrad = async () => {
 </script>
 
 <template>
-    <template v-if="!isShequ">
+  <template v-if="!isShequ">
     <div class="container">
       <div class="title">{{ $t("community_introduction") }}</div>
       <div class="desc">{{ $t("dog_king") }}</div>
@@ -74,10 +80,10 @@ const handleUpgrad = async () => {
     background: url("../../assets/shequBg.png") no-repeat;
     background-size: contain;
     background-position: top center;
-    div{
+    div {
       font-weight: 400;
       font-size: 36px;
-      color: #FFFFFF;
+      color: #ffffff;
       text-align: center;
       padding-bottom: 50px;
     }
