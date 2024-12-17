@@ -215,7 +215,9 @@ const get_suan_li__dd = async () => {
     cap: parseFloat(cap.toFixed(4)),
     dai_ling_qu: parseFloat((dai_ling_qu - dongtai).toFixed(4)),
     liu_shui_qu: parseFloat(liu_shui_qu.toFixed(4)),
-    yi_ling_qu: parseFloat(yi_ling_qu.toFixed(4)),
+    yi_ling_qu: parseFloat(
+      Number(ethers.formatEther(storg.balance)).toFixed(4)
+    ),
     dongtai: parseFloat(dongtai.toFixed(4))
   };
 };
