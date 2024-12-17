@@ -36,8 +36,6 @@ export default defineConfig(({ mode }) => {
       }),
       // 允许 setup 语法糖上添加组件名属性
       vueSetupExtend(),
-      // 生产环境 gzip 压缩资源
-      viteCompression(),
       // 注入模板数据
       createHtmlPlugin({
         inject: {
