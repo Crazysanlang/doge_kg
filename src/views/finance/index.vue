@@ -84,7 +84,7 @@ const handleWithDraw = async () => {
       <van-image width="100%" height="100%" :src="Banner1" />
       <div class="txt">
         <div class="title">{{ $t("my_investment") }}</div>
-        <div class="desc">{{ $t("fund_input") }}</div>
+        <div class="desc">{{ $t("investment_double") }}</div>
       </div>
     </div>
 

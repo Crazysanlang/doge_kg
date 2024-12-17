@@ -73,5 +73,7 @@ export default {
   // 공유 가속
   share_acceleration: "공유 가속",
   // 흐름 가속
-  water_acceleration: "흐름 가속"
+  water_acceleration: "흐름 가속",
+  // 시장가치 향상으로 이익이 두 배 됩니다.
+  investment_double: "시장가치 향상으로 이익이 두 배 됩니다."
 };

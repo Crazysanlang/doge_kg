@@ -74,5 +74,7 @@ export default {
   // 共有加速
   share_acceleration: "共有加速",
   // フロー加速
-  water_acceleration: "フロー加速"
+  water_acceleration: "フロー加速",
+  // 市価総額の向上で収益が倍増します。
+  investment_double: "市価総額の向上で収益が倍増します。",
 };

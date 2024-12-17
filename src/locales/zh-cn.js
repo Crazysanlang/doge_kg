@@ -78,5 +78,8 @@ export default {
   // 分享加速
   share_acceleration: "分享加速",
   // 流水加速
-  water_acceleration: "流水加速"
+  water_acceleration: "流水加速",
+  // 做市值将获得两倍收益
+  investment_double: "做市值将获得两倍收益",
+
 };

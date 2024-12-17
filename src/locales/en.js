@@ -76,5 +76,7 @@ export default {
   // Share Acceleration
   share_acceleration: "Share Acceleration",
   // Flow Acceleration
-  water_acceleration: "Flow Acceleration"
+  water_acceleration: "Flow Acceleration",
+  // Doubling Returns by Boosting Market Value
+  investment_double: "Doubling Returns by Boosting Market Value",
 };
