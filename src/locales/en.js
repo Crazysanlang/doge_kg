@@ -2,13 +2,13 @@ export default {
   // 链接钱包
   link_wallet: "Link Wallet",
   // 我的理财
-  my_investment: "My Investments",
+  my_investment: "My Market Value",
   // 我的社区
   my_community: "My Community",
   // 我的团队
   my_team: "My Team",
   // 单次投资200usdt以上
-  invest_more: "Invest over 200 USDT at a time",
+  invest_more: "Enhance Market Capitalization over 200 USDT at a time",
   // 请输入投资数量
   please_input: "Please enter the investment amount",
   // 温馨提示
@@ -22,7 +22,7 @@ export default {
   // 释放进度
   release_progress: "Release Progress",
   // 添加理财
-  add_investment: "Add Investment",
+  add_investment: "Enhance Market Capitalization",
   // 可提额度
   quota_withdrawal: "Withdrawable Quota",
   // 静动态
@@ -70,5 +70,11 @@ export default {
   // Operation successful
   operation_success: "Operation successful",
   // Operation failed
-  operation_failure: "Operation failed"
+  operation_failure: "Operation failed",
+  // Real-time Release
+  real_time: "Real-time Release",
+  // Share Acceleration
+  share_acceleration: "Share Acceleration",
+  // Flow Acceleration
+  water_acceleration: "Flow Acceleration"
 };

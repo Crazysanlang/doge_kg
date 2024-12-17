@@ -127,9 +127,9 @@ const handleWithDraw = async () => {
     <div class="withdrawTit">{{ $t("quota_withdrawal") }}</div>
     <div class="flex items-center justify-between withdraw">
       <div class="flex content-center wLeft">
-        <div>{{ $t("static") }}：{{ pageData.dai_ling_qu  || '-'}}</div>
-        <div>{{ $t("dynamic") }}：{{ pageData.dongtai  || '-'}}</div>
-        <div>{{ $t("water_flow") }}：{{ pageData.liu_shui_qu  || '-'}}</div>
+        <div>{{ $t("real_time") }}：{{ pageData.dai_ling_qu  || '-'}}</div>
+        <div>{{ $t("share_acceleration") }}：{{ pageData.dongtai  || '-'}}</div>
+        <div>{{ $t("water_acceleration") }}：{{ pageData.liu_shui_qu  || '-'}}</div>
       </div>
       <div class="wRight">
         <button @click="handleWithDraw">{{ $t("pack_withdrawal") }}</button>
@@ -261,7 +261,7 @@ const handleWithDraw = async () => {
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
-  padding: 0 38px;
+  padding: 0 20px;
   box-sizing: border-box;
   .leftTop {
     position: absolute;
@@ -285,7 +285,7 @@ const handleWithDraw = async () => {
       text-align: left;
       width: 100%;
       font-weight: bold;
-      font-size: 36px;
+      font-size: 30px;
       color: #ffffff;
       // margin-bottom: 22px;
     }

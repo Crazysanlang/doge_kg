@@ -2,13 +2,13 @@ export default {
   // 링크 지갑
   link_wallet: "링크 지갑",
   // 나의 투자
-  my_investment: "나의 투자",
+  my_investment: "내 시장가치",
   // 나의 커뮤니티
   my_community: "나의 커뮤니티",
   // 나의 팀
   my_team: "나의 팀",
   // 단일 투자액 200 USDT 이상
-  invest_more: "단일 투자액 200 USDT 이상",
+  invest_more: "시장가치 증대 200 USDT 이상",
   // 투자액을 입력해 주세요
   please_input: "투자액을 입력해 주세요",
   // 친절한 팁
@@ -22,7 +22,7 @@ export default {
   // 풀리기 진행도
   release_progress: "풀리기 진행도",
   // 투자를 추가
-  add_investment: "투자를 추가",
+  add_investment: "시장가치 증대",
   // 인출 가능 액수
   quota_withdrawal: "인출 가능 액수",
   // 정적 & 동적
@@ -67,5 +67,11 @@ export default {
   // 작업 성공
   operation_success: "작업 성공",
   // 작업 실패
-  operation_failure: "작업 실패"
+  operation_failure: "작업 실패",
+  // 실시간 릴리즈
+  real_time: "실시간 릴리즈",
+  // 공유 가속
+  share_acceleration: "공유 가속",
+  // 흐름 가속
+  water_acceleration: "흐름 가속"
 };

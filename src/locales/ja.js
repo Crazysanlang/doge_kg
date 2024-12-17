@@ -2,13 +2,13 @@ export default {
   // リンクウォレット
   link_wallet: "ウォレットをリンクする",
   // 私の投資
-  my_investment: "私の投資",
+  my_investment: "私の市場価値",
   // 私のコミュニティ
   my_community: "私のコミュニティ",
   // 私のチーム
   my_team: "私のチーム",
   // 1回の投資は200 USDT以上
-  invest_more: "1回の投資は200 USDT以上",
+  invest_more: "市価総額の増強200 USDT以上",
   // 投資額を入力してください
   please_input: "投資額を入力してください",
   // ウェルカミングヒント
@@ -22,7 +22,7 @@ export default {
   // 解放進捗
   release_progress: "解放進捗",
   // 投資を追加
-  add_investment: "投資を追加",
+  add_investment: "市価総額の増強",
   // 引き出し可能額
   quota_withdrawal: "引き出し可能額",
   // 静的と動的
@@ -68,5 +68,11 @@ export default {
   // 操作成功
   operation_success: "操作成功",
   // 操作失敗
-  operation_failure: "操作失敗"
+  operation_failure: "操作失敗",
+  // リアルタイムリリース
+  real_time: "リアルタイムリリース",
+  // 共有加速
+  share_acceleration: "共有加速",
+  // フロー加速
+  water_acceleration: "フロー加速"
 };

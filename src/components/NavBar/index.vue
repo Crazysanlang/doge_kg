@@ -255,6 +255,7 @@ onMounted(() => {
   z-index: 2;
   .select {
     min-width: 207px;
+    padding: 0 10px;
     height: 52px;
     border: 2px solid #f3ba2f;
     border-radius: 30px;
