@@ -4,7 +4,7 @@ import { ref, onMounted } from "vue";
 import { formatAddr, handleCopy } from "@/utils";
 import { useUserStore } from "@/store/modules/user";
 import { http } from "@/utils/http";
-import { team_speed_up } from "@/utils/dapp"
+import { team_speed_up } from "@/utils/dapp";
 
 const userStore = useUserStore();
 let linkAdress = ref("");
@@ -19,10 +19,10 @@ function queryData() {
     url: "https://dog-king.com/api/info",
     method: "get",
     params: { address: userStore.address }
-  }
-  http.request(params).then((res) => {
+  };
+  http.request(params).then(res => {
     list.value = res.tables
-    pagaData.value = res
+    pagaData.value = res;
   });
 }
 const teamAcceleration = ref(0);
@@ -30,7 +30,7 @@ onMounted(async () => {
   renderlink();
   queryData();
   const res = await team_speed_up();
-  teamAcceleration.value = res
+  teamAcceleration.value = res;
 });
 </script>
 
@@ -39,59 +39,66 @@ onMounted(async () => {
     <div class="banner">
       <van-image width="100%" height="100%" :src="Banner2" />
       <div class="txt">
-        <div class="title">{{ $t('my_team') }}</div>
+        <div class="title">{{ $t("my_team") }}</div>
         <div class="desc">
-          {{ $t('bind_invitation') }}
+          {{ $t("bind_invitation") }}
         </div>
       </div>
     </div>
-    <div class="inviteTit">{{ $t('invitation_link') }}</div>
+    <div class="inviteTit">{{ $t("invitation_link") }}</div>
     <div class="flex items-center justify-center inviteBox">
       <div>{{ linkAdress }}</div>
       <img @click="handleCopy(linkAdress)" src="../../assets/copy.png" alt="" />
     </div>
-    <div class="tips">{{ $t('participate_dog') }}</div>
+    <div class="tips">{{ $t("participate_dog") }}</div>
     <div class="flex justify-start flexbox">
       <div class="flex items-center justify-center">
         <img src="../../assets/team1.png" alt="" />
         <div class="text">
-          <div>{{ $t('recommend_number') }}</div>
-          <div>{{ pagaData.tui_jian_ren_shu || '-' }}</div>
+          <div>{{ $t("recommend_number") }}</div>
+          <div>{{ pagaData.tui_jian_ren_shu || "-" }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team2.png" alt="" />
         <div class="text">
-          <div>{{ $t('team_performance') }}</div>
-          <div>{{ pagaData.tuan_dui_ye_ji || '-' }}</div>
+          <div>{{ $t("team_performance") }}</div>
+          <div>{{ pagaData.tuan_dui_ye_ji || "-" }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team3.png" alt="" />
         <div class="text">
-          <div>{{ $t('team_number') }}</div>
-          <div>{{ pagaData.tuan_dui_ren_shu || '-' }}</div>
+          <div>{{ $t("team_number") }}</div>
+          <div>{{ pagaData.tuan_dui_ren_shu || "-" }}</div>
         </div>
       </div>
       <div class="flex items-center justify-center">
         <img src="../../assets/team4.png" alt="" />
         <div class="text">
-          <div>{{ $t('team_acceleration') }}</div>
+          <div>{{ $t("team_acceleration") }}</div>
           <div>{{ teamAcceleration }}</div>
         </div>
       </div>
     </div>
-    <div class="tdjx">{{ $t('team_performance2') }}</div>
+    <div class="tdjx">{{ $t("team_performance2") }}</div>
     <div class="teamList">
       <div class="tHeader">
-        <div class="">{{ $t('address') }}</div>
-        <div class="">{{ $t('recommend') }}</div>
-        <div class="">{{ $t('team') }}</div>
-        <div class="">{{ $t('performance') }}</div>
+        <div class="">{{ $t("address") }}</div>
+        <div class="">{{ $t("recommend") }}</div>
+        <div class="">{{ $t("team") }}</div>
+        <div class="">{{ $t("performance") }}</div>
       </div>
       <div class="tBody">
         <div class="list" v-for="(item, index) in list" :key="index">
-          <div class="">{{ formatAddr(item.addr) }}</div>
+          <div class="">
+            {{ formatAddr(item.addr) }}
+            <img
+              @click="handleCopy(item.addr)"
+              src="../../assets/copy.png"
+              alt=""
+            />
+          </div>
           <div class="">{{ item.tui_jian_ren_shu || "-" }}</div>
           <div class="">{{ item.tuan_dui_ren_shu || "-" }}</div>
           <div class="">{{ item.tuan_dui_ye_ji || "-" }}</div>
@@ -140,7 +147,7 @@ onMounted(async () => {
   font-weight: 400;
   font-size: 28px;
   color: #ffffff;
-  div{
+  div {
     word-break: break-all;
     padding-right: 10px;
   }
@@ -189,7 +196,6 @@ onMounted(async () => {
 .teamList {
   margin: 20px 36px;
   min-height: 300px;
-  
 }
 
 .tHeader {
@@ -208,6 +214,8 @@ onMounted(async () => {
 
   div:first-child {
     text-align: left;
+    flex: 2;
+
   }
 }
 .list {
@@ -224,9 +232,15 @@ onMounted(async () => {
     height: 80px;
     line-height: 80px;
     text-align: center;
+    img {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+    }
   }
 
   div:first-child {
+    flex: 2;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
