@@ -47,15 +47,20 @@ const handleStake = async () => {
 const pageData = ref({});
 const floatRef = ref(null);
 onMounted(async () => {
-  const halfWidth = floatRef.value.getBoundingClientRect().width / 2 - 3;
+  const halfWidth1 = floatRef.value.getBoundingClientRect().width / 2 - 3;
   floatStyle.value = {
     ...floatStyle.value,
-    marginLeft: `-${halfWidth}px`
+    marginLeft: `-${halfWidth1}px`
   };
   const res = await get_suan_li__dd();
-  pageData.value = res;
-  const progress = `${(res.yi_ling_qu / res.cap) * 100}%`;
+  const format: any = {};
+  for (const key in res) {
+    format[key] = res[key] || 0;
+  }
+  pageData.value = format;
+  const progress = `${(pageData.value.yi_ling_qu / pageData.value.cap) * 100}%`;
   setTimeout(() => {
+    const halfWidth2 = floatRef.value.getBoundingClientRect().width / 2 + 2;
     proStyle.value = {
       width: progress,
       transition: "all 3s ease-out"
@@ -63,7 +68,9 @@ onMounted(async () => {
 
     floatStyle.value = {
       left: progress,
-      marginLeft: `-${halfWidth}px`,
+      marginLeft: `-${
+        pageData.value.yi_ling_qu == 0 ? halfWidth1 : halfWidth2
+      }px`,
       transition: "all 3s ease-out",
       opacity: 1
     };
@@ -188,7 +195,7 @@ const handleWithDraw = async () => {
     margin-left: 10px;
   }
   .pro {
-    width: 100%;
+    width: 500px;
     height: 44px;
     background: #23262f;
     border-radius: 20px;
@@ -202,7 +209,7 @@ const handleWithDraw = async () => {
       height: 100%;
       background-image: url("../../assets/progress_bg.png");
       background-repeat: no-repeat;
-      background-position: left;
+      background-position: right;
       background-size: auto 100%;
       // transform: rotate(180deg);
       color: #ffffff;
