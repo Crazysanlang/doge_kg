@@ -18,6 +18,7 @@ const proStyle = ref({
 });
 const floatStyle = ref({
   left: "0%",
+  marginLeft: "0",
   transition: "all 3s ease-out",
   opacity: 0
 });
@@ -44,19 +45,25 @@ const handleStake = async () => {
   }
 };
 const pageData = ref({});
+const floatRef = ref(null);
 onMounted(async () => {
+  const halfWidth = floatRef.value.getBoundingClientRect().width / 2 - 3;
+  floatStyle.value = {
+    ...floatStyle.value,
+    marginLeft: `-${halfWidth}px`
+  };
   const res = await get_suan_li__dd();
   pageData.value = res;
-  console.log("🚀 ~ onMounted ~ res:", res);
   const progress = `${(res.yi_ling_qu / res.cap) * 100}%`;
-
   setTimeout(() => {
     proStyle.value = {
       width: progress,
       transition: "all 3s ease-out"
     };
+
     floatStyle.value = {
       left: progress,
+      marginLeft: `-${halfWidth}px`,
       transition: "all 3s ease-out",
       opacity: 1
     };
@@ -96,7 +103,7 @@ const handleWithDraw = async () => {
             class="flex items-center justify-between mask"
             :style="proStyle"
           ></div>
-          <div class="floatNum" :style="floatStyle">
+          <div ref="floatRef" class="floatNum" :style="floatStyle">
             {{ pageData.yi_ling_qu }}
           </div>
         </div>
@@ -127,9 +134,11 @@ const handleWithDraw = async () => {
     <div class="withdrawTit">{{ $t("quota_withdrawal") }}</div>
     <div class="flex items-center justify-between withdraw">
       <div class="flex content-center wLeft">
-        <div>{{ $t("real_time") }}：{{ pageData.dai_ling_qu  || '-'}}</div>
-        <div>{{ $t("share_acceleration") }}：{{ pageData.dongtai  || '-'}}</div>
-        <div>{{ $t("water_acceleration") }}：{{ pageData.liu_shui_qu  || '-'}}</div>
+        <div>{{ $t("real_time") }}：{{ pageData.dai_ling_qu || "-" }}</div>
+        <div>{{ $t("share_acceleration") }}：{{ pageData.dongtai || "-" }}</div>
+        <div>
+          {{ $t("water_acceleration") }}：{{ pageData.liu_shui_qu || "-" }}
+        </div>
       </div>
       <div class="wRight">
         <button @click="handleWithDraw">{{ $t("pack_withdrawal") }}</button>
@@ -179,7 +188,7 @@ const handleWithDraw = async () => {
     margin-left: 10px;
   }
   .pro {
-    width: 482px;
+    width: 100%;
     height: 44px;
     background: #23262f;
     border-radius: 20px;
