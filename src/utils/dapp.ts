@@ -17,6 +17,7 @@ const dog_addr = "0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8";
 // const ADDRESS0 = '0x0000000000000000000000000000000000000000'
 const ROUTER = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
 const USDT = "0x55d398326f99059fF775485246999027B3197955";
+const pair = "0x89a06011c8868c503Fae75666386c4e47659f32E";
 
 const IStaking = [
   "function accumulate(address) external view returns (uint256)",
@@ -235,6 +236,17 @@ const team_speed_up = async () => {
   return parseFloat(sepdrd.toFixed(4));
 };
 
+//查询升级所需的数量、
+const min_amount = async () => {
+  if (!window.ethereum) return false;
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const account = await connectMetamask();
+  if (typeof account !== "string") return account;
+  const usdt__ = new ethers.Contract(USDT, IWEB, provider);
+  const kol = await usdt__.balanceOf(pair);
+  return ethers.formatEther(kol);
+};
+
 export {
   connectMetamask,
   stakeUSDT,
@@ -242,5 +254,6 @@ export {
   withdrawAllReward,
   joinIn,
   get_suan_li__dd,
-  team_speed_up
+  team_speed_up,
+  min_amount
 };
