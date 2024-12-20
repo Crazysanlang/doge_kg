@@ -2,20 +2,24 @@
 import { onMounted, ref } from "vue";
 import { showToast } from "vant";
 import "vant/es/toast/style";
-import { isKOL, joinIn } from "@/utils/dapp";
+import { isKOL, joinIn, min_amount } from "@/utils/dapp";
 import ShequDoge from "@/assets/shequDoge.png";
 import i18n from "@/locales/index";
-const { global: { t } } = i18n;
+const {
+  global: { t }
+} = i18n;
 const isShequ = ref(false);
+const min_value = ref("");
 onMounted(async () => {
   isShequ.value = await isKOL();
+  min_value.value = await min_amount();
 });
 const handleUpgrad = async () => {
   try {
     await joinIn();
     isShequ.value = await isKOL();
     if (isShequ.value) {
-      showToast(t('operation_success'));
+      showToast(t("operation_success"));
     }
   } catch (error) {
     console.log(error);
@@ -34,7 +38,7 @@ const handleUpgrad = async () => {
       >
         <div class="flex flex-wrap content-center justify-center block">
           <div class="unit">$</div>
-          <div class="money">6</div>
+          <div class="money">{{ min_value }}</div>
         </div>
         <div class="upgradeTxt">{{ $t("upgrade_community") }}</div>
         <div class="arrow">
