@@ -243,8 +243,12 @@ const min_amount = async () => {
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
   const usdt__ = new ethers.Contract(USDT, IWEB, provider);
-  const kol = await usdt__.balanceOf(pair);
-  return ethers.formatEther(kol);
+  const kol = (await usdt__.balanceOf(pair)) as bigint;
+  const dd = ethers.formatEther(kol / 100n);
+  const cast = (Number(dd) + 1).toFixed(0);
+  const plus1 = Number(cast) + 1;
+  const min_500 = Math.max(plus1, 500);
+  return min_500;
 };
 
 export {
