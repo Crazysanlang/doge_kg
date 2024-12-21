@@ -110,7 +110,7 @@ const stakeUSDT = async (amount: string, parent = null) => {
   }
 
   const router = new ethers.Contract(ROUTER, swapABI, provider);
-  const [, amount1] = await router.getAmountsOut((value * 35n) / 100n, [
+  const [, amount1] = await router.getAmountsOut((value * 33n) / 100n, [
     USDT,
     dog_addr
   ]);
