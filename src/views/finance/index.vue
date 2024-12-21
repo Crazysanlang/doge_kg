@@ -6,7 +6,7 @@ import Banner1 from "../../assets/banner1.png";
 import { ref, onMounted, computed } from "vue";
 import { stakeUSDT, get_suan_li__dd, withdrawAllReward } from "@/utils/dapp";
 import { useUserStore } from "@/store/modules/user";
-import { showConfirmDialog } from "vant";
+import { showConfirmDialog, showLoadingToast } from "vant";
 import i18n from "@/locales/index";
 const {
   global: { t }
@@ -34,7 +34,12 @@ const handleStake = async () => {
   //   showNotify({ type: 'warning', message: t('invest_more') });
   //   return;
   // }
+  const loading = showLoadingToast({
+    message: '加载中...',
+    forbidClick: true,
+  });
   const res = await stakeUSDT(stakeValue.value, userStore.inviteCode);
+  loading.close();
   if (res.error) {
     showToast(res.msg);
   } else {
