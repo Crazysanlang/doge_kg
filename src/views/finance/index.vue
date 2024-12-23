@@ -30,13 +30,13 @@ const handleStake = async () => {
     showNotify({ type: "warning", message: t("please_input") });
     return;
   }
-  // if (Number(stakeValue.value) < 200) {
-  //   showNotify({ type: 'warning', message: t('invest_more') });
-  //   return;
-  // }
+  if (Number(stakeValue.value) < 200) {
+    showNotify({ type: "warning", message: t("invest_more") });
+    return;
+  }
   const loading = showLoadingToast({
-    message: '加载中...',
-    forbidClick: true,
+    message: "加载中...",
+    forbidClick: true
   });
   const res = await stakeUSDT(stakeValue.value, userStore.inviteCode);
   loading.close();

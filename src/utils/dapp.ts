@@ -83,8 +83,10 @@ const connectMetamask = async () => {
 };
 
 //质押usdt
-const stakeUSDT = async (amount: string, parent = null) => {
+const stakeUSDT = async (_amount: number, parent = null) => {
   if (!window.ethereum) return { error: true, msg: "please connect wallet" };
+
+  const amount = _amount.toString();
 
   const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
