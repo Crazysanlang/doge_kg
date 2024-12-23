@@ -123,7 +123,8 @@ const handleWithDraw = async () => {
       </div>
     </div>
     <div class="flex items-center justify-between add">
-      <van-field
+      <input type="number" v-model="stakeValue" :placeholder="placeholder" />
+      <!-- <van-field
         v-model="stakeValue"
         :placeholder="placeholder"
         type="number"
@@ -138,7 +139,7 @@ const handleWithDraw = async () => {
         :extra-key="['.']"
         :maxlength="10"
         @blur="show = false"
-      />
+      /> -->
       <button class="addBtn" @click="handleStake">
         {{ $t("add_investment") }}
       </button>
