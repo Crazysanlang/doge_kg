@@ -61,7 +61,9 @@ async function handleLink() {
   await userStore.login();
 }
 onMounted(() => {
-  userStore.login();
+  setTimeout(() => {
+    userStore.login();
+  }, 300);
 });
 </script>
 
