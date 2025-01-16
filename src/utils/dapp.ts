@@ -53,7 +53,8 @@ const INEW = [
 
   "function withdrawableDividendOf(address _owner) public view returns (uint256)",
   "function withdrawnDividendOf(address _owner) public view returns (uint256)",
-  "function balanceOf(address account) external view returns (uint256)"
+  "function balanceOf(address account) external view returns (uint256)",
+  "function lastStakTime(address account) external view returns (uint256)"
 ];
 
 const swapABI = [
@@ -272,9 +273,11 @@ const getMydata = async () => {
   const newsk = new ethers.Contract(new_addr, INEW, provider);
   const stakeAmount = await newsk.balanceOf(account);
   const withdrawable = await newsk.withdrawableDividendOf(account);
+  const stakeTime = await newsk.lastStakTime(account);
   return {
     stakeAmount: ethers.formatEther(stakeAmount),
-    withdrawable: ethers.formatEther(withdrawable)
+    withdrawable: ethers.formatEther(withdrawable),
+    stakeTime
   };
 };
 const stakeTokens = async (_amount: number) => {
