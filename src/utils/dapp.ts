@@ -6,16 +6,9 @@ declare global {
   }
 }
 
-// DOG合约-> 0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8
-// 挖矿合约-> 0x54166CCA610a54e9afca697f44826be966fB252e
-// 流水合约-> 0x4F7D6f4e6Af6Fe8cD5DBeF1be7d1e1cEfb9Dc981
-
-// DOG合约-> 0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8
-//   挖矿合约-> 0x20C6F815597531A907a55484fC38e766C85B6a5A
-//   流水合约-> 0xC22EB971da61DAb0A54868dD57BB610182D03b7D
-
 const staking_addr = "0x20C6F815597531A907a55484fC38e766C85B6a5A";
 const dog_addr = "0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8";
+const new_addr = "0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8";
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
 // const ADDRESS0 = '0x0000000000000000000000000000000000000000'
@@ -28,15 +21,16 @@ const IStaking = [
   "function my_speedup(address) external view returns (uint256)",
   "function earned(address _user) external view returns (uint256 reward, uint256 remain_balance, uint256 stake_amount, bool out, uint256 withdrawableAmount)",
   "function isKOL(address user) external view returns (bool)",
+  "function re_stake() external",
   "function nodeLength(address account) external view returns (uint256)",
   "function nodesOf(address, uint256) external view returns (address)",
   "function parentOf(address child) external view returns (address parent)",
   "function userReward(address) external view returns (uint112 balance, uint112 amount, uint32 lastUpdateTime)",
   "function stake_usdt(uint112 _amount, uint256 amountOutMin) external",
   "function stakeWithInviter(uint256 _amount, uint256 amountOutMin, address up) external",
-  "function get_reward_all() external",
-  "function get_reward_static() external",
-  "function withdraw_fee() external",
+  "function get_reward_all(bool isU) external",
+  "function get_reward_static(bool isU) external",
+  "function withdraw_fee(bool isU) external",
   "function upgrade_kol() external"
 ];
 
@@ -50,6 +44,16 @@ const IWEB = [
   "function totalSupply() external view returns (uint256)",
   "function name() external view returns (string memory)",
   "function symbol() external view returns (string memory)"
+];
+
+const INEW = [
+  "function createShare(uint256 value) external",
+  "function burnShare() external",
+  "function withdrawDividendOfUser() public onlyEOA returns (uint256)",
+
+  "function withdrawableDividendOf(address _owner) public view returns (uint256)",
+  "function withdrawnDividendOf(address _owner) public view returns (uint256)",
+  "function balanceOf(address account) external view returns (uint256)"
 ];
 
 const swapABI = [
@@ -155,7 +159,7 @@ const isKOL = async () => {
 };
 
 //领取所有利息
-const withdrawAllReward = async () => {
+const withdrawAllReward = async (isusdt: boolean) => {
   if (!window.ethereum) return { error: true, msg: "please connect wallet" };
   const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
@@ -163,7 +167,21 @@ const withdrawAllReward = async () => {
 
   const signer = await provider.getSigner();
   const stake = new ethers.Contract(staking_addr, IStaking, signer);
-  const tx = await stake.get_reward_all();
+  const tx = await stake.get_reward_all(isusdt);
+  const r = await tx.wait();
+  return r;
+};
+
+//复投
+const restaking = async () => {
+  if (!window.ethereum) return { error: true, msg: "please connect wallet" };
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const account = await connectMetamask();
+  if (typeof account !== "string") return account;
+
+  const signer = await provider.getSigner();
+  const stake = new ethers.Contract(staking_addr, IStaking, signer);
+  const tx = await stake.re_stake();
   const r = await tx.wait();
   return r;
 };
@@ -244,30 +262,100 @@ const team_speed_up = async () => {
 
 //查询升级所需的数量、
 const min_amount = async () => {
-  if (!window.ethereum) return false;
+  return 500;
+};
+
+const getMydata = async () => {
+  if (!window.ethereum) return { error: true, msg: "please connect wallet" };
+  const account = await connectMetamask();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const newsk = new ethers.Contract(new_addr, INEW, provider);
+  const stakeAmount = await newsk.balanceOf(account);
+  const withdrawable = await newsk.withdrawableDividendOf(account);
+  return {
+    stakeAmount: ethers.formatEther(stakeAmount),
+    withdrawable: ethers.formatEther(withdrawable)
+  };
+};
+const stakeTokens = async (_amount: number) => {
+  if (!window.ethereum) return { error: true, msg: "please connect wallet" };
+
+  const amount = _amount.toString();
+
   const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
-  const usdt__ = new ethers.Contract(USDT, IWEB, provider);
-  const kol = (await usdt__.balanceOf(pair)) as bigint;
-  const dd = ethers.formatEther(kol / 100n);
-  const cast = (Number(dd) + 1).toFixed(0);
-  const plus1 = Number(cast) + 1;
-  const min_500 = Math.max(plus1, 500);
-  return min_500;
-};
-const getMydata = async () => {
- 
-};
-const stakeTokens = async () => {
-  
+
+  const value = ethers.parseEther(amount);
+  const signer = await provider.getSigner();
+
+  const newsk = new ethers.Contract(new_addr, INEW, signer);
+
+  const token = new ethers.Contract(dog_addr, IWEB, signer);
+
+  const bal = await token.balanceOf(account);
+  if (value > bal) {
+    return { error: true, msg: "Insufficient balance" };
+  }
+
+  const allowance = await token.allowance(account, new_addr);
+
+  if (allowance < value) {
+    const tx = await token.approve(new_addr, ethers.MaxUint256);
+    await tx.wait();
+  }
+
+  const tx = await newsk.createShare(value).catch((error: { message: any }) => {
+    console.log(error.message);
+    return { error: true, msg: "入金失败" };
+  });
+
+  if (tx.error === true) {
+    return tx;
+  } else {
+    const r = await tx.wait();
+    return r;
+  }
 };
 const withdrawalPrincipal = async () => {
- 
+  if (!window.ethereum) return { error: true, msg: "please connect wallet" };
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+  const newsk = new ethers.Contract(new_addr, INEW, signer);
+  const tx = await newsk.burnShare().catch((error: { message: any }) => {
+    console.log(error.message);
+    return { error: true, msg: "提取失败" };
+  });
+
+  if (tx.error === true) {
+    return tx;
+  } else {
+    const r = await tx.wait();
+    return r;
+  }
 };
+
 const claimInterest = async () => {
- 
+  if (!window.ethereum) return { error: true, msg: "please connect wallet" };
+  const account = await connectMetamask();
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+  const newsk = new ethers.Contract(new_addr, INEW, signer);
+  const tx = await newsk
+    .withdrawDividendOfUser(account)
+    .catch((error: { message: any }) => {
+      console.log(error.message);
+      return { error: true, msg: "提取失败" };
+    });
+
+  if (tx.error === true) {
+    return tx;
+  } else {
+    const r = await tx.wait();
+    return r;
+  }
 };
+
 export {
   connectMetamask,
   stakeUSDT,
@@ -280,5 +368,6 @@ export {
   getMydata,
   stakeTokens,
   withdrawalPrincipal,
-  claimInterest
+  claimInterest,
+  restaking
 };
