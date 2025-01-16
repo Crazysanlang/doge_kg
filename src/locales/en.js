@@ -7,6 +7,7 @@ export default {
   my_community: "My Community",
   // 我的团队
   my_team: "My Team",
+  my_deposit1: "My Stake",
   // 单次投资200usdt以上
   invest_more: "Enhance Market Capitalization over 200 USDT at a time",
   // 请输入投资数量
@@ -18,7 +19,8 @@ export default {
   // 提现成功
   withdrawal_success: "Withdrawal Successful",
   // 资金投入后，90%资金回流比值自动打入黑洞，将获得投入资金的2倍额度。
-  fund_input: "After fund injection, 90% of the fund reflow ratio will be automatically injected into the black hole, and you will receive twice the amount of the invested funds.",
+  fund_input:
+    "After fund injection, 90% of the fund reflow ratio will be automatically injected into the black hole, and you will receive twice the amount of the invested funds.",
   // 释放进度
   release_progress: "Release Progress",
   // 添加理财
@@ -36,11 +38,13 @@ export default {
   // 打包提现
   pack_withdrawal: "Withdrawal",
   // 您可以在此处绑定邀请关系，也可以复制邀请链接邀请好友加入。当您和您的朋友每天都有新的货币持有量时，您可以获得促销奖励。
-  bind_invitation: "You can bind invitation relationships here, or copy the invitation link to invite friends to join. When you and your friends have new currency holdings every day, you can receive promotional rewards.",
+  bind_invitation:
+    "You can bind invitation relationships here, or copy the invitation link to invite friends to join. When you and your friends have new currency holdings every day, you can receive promotional rewards.",
   // 邀请链接
   invitation_link: "Invitation Link",
   // 参与dog king低于$200，无邀请权益
-  participate_dog: "Participating in dog king with less than $200 does not grant invitation benefits",
+  participate_dog:
+    "Participating in dog king with less than $200 does not grant invitation benefits",
   // 推荐人数
   recommend_number: "Number of Recommendations",
   //  团队业绩
@@ -64,7 +68,8 @@ export default {
   community_introduction: "Community Introduction",
   // dog king是一个真正dao社区自治运营的去中心化交易平台，
   //   根据底池的1％自由升级社区.成为后可享受散下所有业绩的福利。
-  dog_king: "dog king is a truly decentralized trading platform operated autonomously by a dao community. You can freely upgrade the community based on 1% of the pool. Once upgraded, you can enjoy the benefits of all performance under your community.",
+  dog_king:
+    "dog king is a truly decentralized trading platform operated autonomously by a dao community. You can freely upgrade the community based on 1% of the pool. Once upgraded, you can enjoy the benefits of all performance under your community.",
   // 升级社区
   upgrade_community: "Upgrade Community",
   // Operation successful
@@ -79,4 +84,17 @@ export default {
   water_acceleration: "Flow Acceleration",
   // Doubling Returns by Boosting Market Value
   investment_double: "Doubling Returns by Boosting Market Value",
+  deposit1: "Collateral",
+  re_deposit: "Re-investment",
+  redemption_principal: "Redeem Principal",
+  deposit_time: "Collateral Time",
+  due_time: "Due Time",
+  principal: "Principal",
+  interests: "Interests",
+  determine_re_deposit: "Are you sure you want to re-invest?",
+  determine_redemption: "Are you sure you want to redeem?",
+  apy: "Annualized Yield",
+  // 提取利息
+  extract_interest: "Extract Interest",
+  please_input_deposit: "Please enter the collateral amount"
 };

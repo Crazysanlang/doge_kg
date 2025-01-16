@@ -68,23 +68,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex items-center justify-between box">
+  <div class="flex justify-between items-center box">
     <div class="boxLeft">
       <div
-        class="flex items-center justify-center select"
+        class="flex justify-center items-center select"
         @click="showLeft = true"
       >
         {{ title }} <span class="arrowDow"></span>
       </div>
     </div>
-    <div class="flex items-center justify-center boxRight">
+    <div class="flex justify-center items-center boxRight">
       <img src="../../assets/setting.png" alt="" />
       <img src="../../assets/bnb.png" alt="" />
       <img @click="showCenter = true" src="../../assets/language.png" alt="" />
       <button class="connect" v-if="!userStore.address" @click="handleLink">
         {{ $t("link_wallet") }}
       </button>
-      <button class="connect whitespace-nowrap" v-else>
+      <button class="whitespace-nowrap connect" v-else>
         {{ formatAddr(userStore.address) }}
       </button>
     </div>
@@ -111,6 +111,13 @@ onMounted(() => {
           @click="handleNavigateto('Team')"
         >
           {{ $t("my_team") }}
+        </div>
+        <div
+          class="routerItem"
+          :class="routerName == 'Pledge' ? 'active' : ''"
+          @click="handleNavigateto('Pledge')"
+        >
+          {{ $t("my_deposit1") }}
         </div>
         <div
           class="routerItem"

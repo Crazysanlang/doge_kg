@@ -256,7 +256,18 @@ const min_amount = async () => {
   const min_500 = Math.max(plus1, 500);
   return min_500;
 };
-
+const getMydata = async () => {
+ 
+};
+const stakeTokens = async () => {
+  
+};
+const withdrawalPrincipal = async () => {
+ 
+};
+const claimInterest = async () => {
+ 
+};
 export {
   connectMetamask,
   stakeUSDT,
@@ -265,5 +276,9 @@ export {
   joinIn,
   get_suan_li__dd,
   team_speed_up,
-  min_amount
+  min_amount,
+  getMydata,
+  stakeTokens,
+  withdrawalPrincipal,
+  claimInterest
 };

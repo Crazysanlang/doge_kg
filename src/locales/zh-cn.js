@@ -7,6 +7,7 @@ export default {
   my_community: "我的社区",
   // 我的团队
   my_team: "我的团队",
+  my_deposit1: "我的质押",
   // 单次投资200usdt以上
   invest_more: "单次做市值200usdt以上",
   // 请输入投资数量
@@ -81,5 +82,17 @@ export default {
   water_acceleration: "流水加速",
   // 做市值将获得两倍收益
   investment_double: "做市值将获得两倍收益",
-
+  deposit1: "质押",
+  re_deposit: "复投",
+  redemption_principal: "赎回本金",
+  deposit_time: "质押时间",
+  due_time: "到期时间",
+  principal: "本金",
+  interests: "利息",
+  determine_re_deposit: "确定复投吗？",
+  determine_redemption: "确定赎回吗？",
+  apy: "年化收益率",
+  // 提取利息
+  extract_interest: "提取利息",
+  please_input_deposit: "请输入质押数量"
 };

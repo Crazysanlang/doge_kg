@@ -81,7 +81,7 @@ export function getDownTime(
 }
 // 字符串前后取4位 中间是星号
 export function formatAddr(str: string) {
-  if (!str) return "";
+  if (!str || typeof str !== "string") return "";
   let str1 = str.substring(0, 4);
   let str2 = str.substring(str.length - 4, str.length);
   return str1 + "****" + str2;
