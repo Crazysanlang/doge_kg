@@ -3,13 +3,12 @@
     <div class="banner">
       <van-image width="100%" height="100%" :src="Banner3" />
       <div class="txt">
-        <div class="title">质押Dogking2.0</div>
+        <div class="title">{{ t("pledge_dogking2") }}</div>
         <div class="desc">
-          质押Dogking2.0根据所有质押数量获得对应占比的市值入金10%的分红。质押为30天一轮，30天后可提出质押dogking2.0，或者不提出持续享受市值入金分红
+          {{ t("pledge_dogking2_desc") }}
         </div>
       </div>
     </div>
-    <!-- 质押信息卡片 -->
     <div class="stake-card">
       <div class="info-section">
         <div class="info-item">
@@ -17,7 +16,7 @@
           <div class="value">{{ stakedAmount }} DOGE</div>
         </div>
         <div class="info-item">
-          <div class="label">分红</div>
+          <div class="label">{{ t("dividend") }}</div>
           <div class="value highlight">{{ interest }} USDT</div>
         </div>
       </div>
@@ -27,21 +26,20 @@
           <span class="label">{{ t("deposit_time") }}</span>
           <span class="value">{{ formatTime(startTime) }}</span>
         </div>
-        <div class="detail-row">
-          <span class="label">{{ t("due_time") }}</span>
-          <span class="value">{{ formatTime(startTime) }}</span>
-        </div>
       </div>
-
-      <!-- 操作按钮 -->
       <div class="action-buttons">
-        <!-- <button class="btn stake" @click="handleStake">
-          开启质押
-        </button> -->
-        <button class="btn withdraw" @click="handleStake">解除质押</button>
-        <button class="btn claim" @click="handleClaimInterest">
-          <!-- :disabled="!interest" -->
-          领取分红
+        <button
+          v-if="stakedAmount === 0"
+          class="btn stake"
+          @click="handleStake"
+        >
+          {{ t("open_pledge") }}
+        </button>
+        <button v-else class="btn withdraw" @click="handleWithdraw">
+          {{ t("withdraw_pledge") }}
+        </button>
+        <button class="btn claim" :disabled="!interest" @click="handleClaimInterest">
+          {{ t("claim_dividend") }}
         </button>
       </div>
     </div>
@@ -75,14 +73,13 @@ import {
   claimInterest
 } from "@/utils/dapp";
 import Banner3 from "../../assets/banner3.png";
+import { showConfirmDialog, showToast } from "vant";
 const { t } = useI18n();
 
 // 质押数据
 const stakedAmount = ref(0);
 const interest = ref(0);
-const stakePeriod = ref("--");
 const startTime = ref(null);
-const apy = ref("--");
 
 const showStakeDialog = ref(false);
 const stakeInput = ref("");
@@ -91,11 +88,9 @@ const stakeInput = ref("");
 const getData = async () => {
   try {
     const res = await getMydata();
-    stakedAmount.value = res.amount || 0;
-    interest.value = res.interest || 0;
-    stakePeriod.value = res.stake_period || "--";
-    startTime.value = res.start_time;
-    apy.value = res.apy || "--";
+    stakedAmount.value = res.stakeAmount || 0;
+    interest.value = res.withdrawable || 0;
+    startTime.value = formatTime(res.stakeTime);
   } catch (error) {
     console.error(error);
   }
@@ -109,25 +104,16 @@ const handleStake = () => {
 
 const confirmStake = async () => {
   if (!stakeInput.value) {
-    uni.showToast({
-      title: t("please_enter_amount"),
-      icon: "none"
-    });
+    showToast(t("please_enter_amount"));
     return;
   }
 
   try {
     await stakeTokens(stakeInput.value);
-    uni.showToast({
-      title: t("success"),
-      icon: "success"
-    });
+    showToast(t("success"));
     getData();
   } catch (error) {
-    uni.showToast({
-      title: t("fail"),
-      icon: "error"
-    });
+    showToast(t("fail"));
   }
 };
 
@@ -137,54 +123,38 @@ const closeStakeDialog = () => {
 
 // 赎回本金
 const handleWithdraw = async () => {
-  uni.showModal({
-    title: t("prompt"),
-    content: t("confirm_withdraw"),
-    success: async ({ confirm }) => {
-      if (confirm) {
-        try {
-          await withdrawalPrincipal();
-          uni.showToast({
-            title: t("success"),
-            icon: "success"
-          });
-          getData();
-        } catch (error) {
-          uni.showToast({
-            title: t("fail"),
-            icon: "error"
-          });
-        }
-      }
-    }
-  });
+  try {
+    await showConfirmDialog({
+      title: t("prompt"),
+      message: t("confirm_withdraw")
+    });
+
+    await withdrawalPrincipal();
+    showToast(t("success"));
+    getData();
+  } catch (error) {
+    if (error.cancel) return; // User cancelled the dialog
+    showToast(t("fail"));
+  }
 };
 
 // 提取利息
 const handleClaimInterest = async () => {
   if (!interest.value) return;
 
-  uni.showModal({
-    title: t("prompt"),
-    content: t("confirm_claim_interest"),
-    success: async ({ confirm }) => {
-      if (confirm) {
-        try {
-          await claimInterest();
-          uni.showToast({
-            title: t("success"),
-            icon: "success"
-          });
-          getData();
-        } catch (error) {
-          uni.showToast({
-            title: t("fail"),
-            icon: "error"
-          });
-        }
-      }
-    }
-  });
+  try {
+    await showConfirmDialog({
+      title: t("prompt"),
+      message: t("confirm_claim_interest")
+    });
+
+    await claimInterest();
+    showToast(t("success"));
+    getData();
+  } catch (error) {
+    if (error.cancel) return; // User cancelled the dialog
+    showToast(t("fail"));
+  }
 };
 
 const formatTime = time => {

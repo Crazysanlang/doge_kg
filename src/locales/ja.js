@@ -94,5 +94,23 @@ export default {
   apy: "年化収益率",
   // 利息を引き出す
   extract_interest: "利息を引き出す",
-  please_input_deposit: "質権額を入力してください"
+  please_input_deposit: "質権額を入力してください",
+  // Dogking2.0をステーキング
+  pledge_dogking2: "Dogking2.0をステーキング",
+  // Dogking2.0をステーキングすると、全ステーキング量に応じて時価総額入金の10%の配当を受け取ることができます。ステーキング期間は30日間で、30日後にDogking2.0のステーキングを解除するか、継続して時価総額入金の配当を受け取ることができます。
+  pledge_dogking2_desc: "Dogking2.0をステーキングすると、全ステーキング量に応じて時価総額入金の10%の配当を受け取ることができます。ステーキング期間は30日間で、30日後にDogking2.0のステーキングを解除するか、継続して時価総額入金の配当を受け取ることができます。",
+  // 配当
+  dividend: "配当",
+  // ステーキングを開始
+  open_pledge: "ステーキングを開始",
+  // ステーキングを解除
+  withdraw_pledge: "ステーキングを解除",
+  // 配当を受け取る
+  claim_dividend: "配当を受け取る",
+  // 再投資
+  restaking: "再投資",
+  // コイン出金
+  withdrawal: "コイン出金",
+  // USDT出金
+  withdrawal_u: "USDT出金"
 };

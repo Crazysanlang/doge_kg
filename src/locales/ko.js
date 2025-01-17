@@ -92,5 +92,23 @@ export default {
   apy: "연간 수익률",
   // 이자 추출
   extract_interest: "이자 추출",
-  please_input_deposit: "투자액을 입력해 주세요"
+  please_input_deposit: "투자액을 입력해 주세요",
+  // Dogking2.0 스테이킹
+  pledge_dogking2: "Dogking2.0 스테이킹",
+  // Dogking2.0을 스테이킹하면 전체 스테이킹 수량에 따라 시가 입금의 10% 배당금을 받을 수 있습니다. 스테이킹은 30일이 한 라운드이며, 30일 후에는 스테이킹된 Dogking2.0을 출금하거나 계속 보유하여 시가 입금 배당금을 받을 수 있습니다.
+  pledge_dogking2_desc: "Dogking2.0을 스테이킹하면 전체 스테이킹 수량에 따라 시가 입금의 10% 배당금을 받을 수 있습니다. 스테이킹은 30일이 한 라운드이며, 30일 후에는 스테이킹된 Dogking2.0을 출금하거나 계속 보유하여 시가 입금 배당금을 받을 수 있습니다.",
+  // 배당금
+  dividend: "배당금",
+  // 스테이킹 시작
+  open_pledge: "스테이킹 시작",
+  // 스테이킹 해제
+  withdraw_pledge: "스테이킹 해제",
+  // 배당금 수령
+  claim_dividend: "배당금 수령",
+  // 재투자
+  restaking: "재투자",
+  // 코인 출금
+  withdrawal: "코인 출금",
+  // USDT 출금
+  withdrawal_u: "USDT 출금"
 };

@@ -96,5 +96,23 @@ export default {
   apy: "Annualized Yield",
   // 提取利息
   extract_interest: "Extract Interest",
-  please_input_deposit: "Please enter the collateral amount"
+  please_input_deposit: "Please enter the collateral amount",
+  // Stake Dogking2.0
+  pledge_dogking2: "Stake Dogking2.0",
+  // By staking Dogking2.0, you receive dividends of 10% of the market value inflow based on your proportion of total staked amount. Staking period is 30 days per round. After 30 days, you can withdraw your staked Dogking2.0 or continue to enjoy market value inflow dividends
+  pledge_dogking2_desc: "By staking Dogking2.0, you receive dividends of 10% of the market value inflow based on your proportion of total staked amount. Staking period is 30 days per round. After 30 days, you can withdraw your staked Dogking2.0 or continue to enjoy market value inflow dividends",
+  // Dividends
+  dividend: "Dividends",
+  // Start Staking
+  open_pledge: "Start Staking",
+  // Unstake
+  withdraw_pledge: "Unstake",
+  // Claim Dividends
+  claim_dividend: "Claim Dividends",
+  // Reinvest
+  restaking: "Reinvest",
+  // Withdraw Coins
+  withdrawal: "Withdraw Coins",
+  // Withdraw USDT
+  withdrawal_u: "Withdraw USDT"
 };

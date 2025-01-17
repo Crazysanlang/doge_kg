@@ -4,7 +4,7 @@ import "vant/lib/toast/style";
 import "vant/lib/notify/style";
 import Banner1 from "../../assets/banner1.png";
 import { ref, onMounted, computed } from "vue";
-import { stakeUSDT, get_suan_li__dd, withdrawAllReward } from "@/utils/dapp";
+import { stakeUSDT, get_suan_li__dd, withdrawAllReward, restaking } from "@/utils/dapp";
 import { useUserStore } from "@/store/modules/user";
 import { showConfirmDialog, showLoadingToast } from "vant";
 import i18n from "@/locales/index";
@@ -81,13 +81,13 @@ onMounted(async () => {
     };
   }, 1000);
 });
-const handleWithDraw = async () => {
+const handleWithDraw = async (flag: boolean) => {
   showConfirmDialog({
     title: t("warm_tips"),
     message: t("confirm_withdrawal"),
     width: "100%"
   }).then(async () => {
-    const res = await withdrawAllReward();
+    const res = await withdrawAllReward(flag);
     if (res.error) {
       showToast(res.msg);
     } else {
@@ -95,6 +95,20 @@ const handleWithDraw = async () => {
     }
   });
 };
+const handleRestaking = async () => {
+  showConfirmDialog({
+    title: t("warm_tips"),
+    message: t("confirm_restaking"),
+    width: "100%"
+  }).then(async () => {
+    const res = await restaking();
+    if (res.error) {
+      showToast(res.msg);
+    } else {
+      showToast(t("operation_failure"));
+    }
+  });
+}
 </script>
 
 <template>
@@ -109,10 +123,10 @@ const handleWithDraw = async () => {
 
     <div class="progress">
       <div class="pTit">{{ $t("release_progress") }}</div>
-      <div class="flex items-center justify-start">
+      <div class="flex justify-start items-center">
         <div class="pro">
           <div
-            class="flex items-center justify-between mask"
+            class="flex justify-between items-center mask"
             :style="proStyle"
           ></div>
           <div ref="floatRef" class="floatNum" :style="floatStyle">
@@ -122,7 +136,7 @@ const handleWithDraw = async () => {
         <div class="allNum">{{ pageData.cap }}</div>
       </div>
     </div>
-    <div class="flex items-center justify-between add">
+    <div class="flex justify-between items-center add">
       <input type="number" v-model="stakeValue" :placeholder="placeholder" />
       <!-- <van-field
         v-model="stakeValue"
@@ -145,7 +159,7 @@ const handleWithDraw = async () => {
       </button>
     </div>
     <div class="withdrawTit">{{ $t("quota_withdrawal") }}</div>
-    <div class="flex items-center justify-between withdraw">
+    <div class="flex justify-between items-center withdraw">
       <div class="flex content-center wLeft">
         <div>{{ $t("real_time") }}：{{ pageData.dai_ling_qu || "-" }}</div>
         <div>{{ $t("share_acceleration") }}：{{ pageData.dongtai || "-" }}</div>
@@ -154,7 +168,10 @@ const handleWithDraw = async () => {
         </div>
       </div>
       <div class="wRight">
-        <button @click="handleWithDraw">{{ $t("pack_withdrawal") }}</button>
+        <button @click="handleRestaking">{{ t("restaking") }}</button>
+        <button @click="handleWithDraw(false)">{{ t("withdrawal") }}</button>
+        <button @click="handleWithDraw(true)">{{ t("withdrawal_u") }}</button>
+        <!-- <button @click="handleWithDraw">{{ $t("pack_withdrawal") }}</button> -->
         <!-- <div>积累提现：$50065</div> -->
       </div>
     </div>
@@ -313,13 +330,14 @@ const handleWithDraw = async () => {
     }
   }
   .wRight {
+    width: 160px;
     button {
-      min-width: 206px;
+      min-width: 160px;
       height: 77px;
       background: #ffffff;
       border-radius: 12px 12px 12px 12px;
       font-weight: 800;
-      font-size: 36px;
+      font-size: 30px;
       color: #fe9005;
       text-align: center;
       line-height: 77px;

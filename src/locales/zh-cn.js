@@ -94,5 +94,24 @@ export default {
   apy: "年化收益率",
   // 提取利息
   extract_interest: "提取利息",
-  please_input_deposit: "请输入质押数量"
+  please_input_deposit: "请输入质押数量",
+  // 质押Dogking2.0
+  pledge_dogking2: "质押Dogking2.0",
+  // 质押Dogking2.0根据所有质押数量获得对应占比的市值入金10%的分红。质押为30天一轮，30天后可提出质押dogking2.0，或者不提出持续享受市值入金分红
+  pledge_dogking2_desc:
+    "质押Dogking2.0根据所有质押数量获得对应占比的市值入金10%的分红。质押为30天一轮，30天后可提出质押dogking2.0，或者不提出持续享受市值入金分红",
+  // 分红
+  dividend: "分红",
+  // 开启质押
+  open_pledge: "开启质押",
+  // 解除质押
+  withdraw_pledge: "解除质押",
+  // 领取分红
+  claim_dividend: "领取分红",
+  // 复投
+  restaking: "复投",
+  // 提币
+  withdrawal: "提币",
+  // 提U
+  withdrawal_u: "提U"
 };
