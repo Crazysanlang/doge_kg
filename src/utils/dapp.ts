@@ -117,28 +117,26 @@ const stakeUSDT = async (_amount: number, parent = null) => {
     await tx.wait();
   }
 
-  const router = new ethers.Contract(ROUTER, swapABI, provider);
-  const [, amount1] = await router.getAmountsOut((value * 33n) / 100n, [
-    USDT,
-    dog_addr
-  ]);
-  const pMin = (amount1 * 98n) / 100n;
+  // const router = new ethers.Contract(ROUTER, swapABI, provider);
+  // const [, amount1] = await router.getAmountsOut((value * 33n) / 100n, [
+  //   USDT,
+  //   dog_addr
+  // ]);
+  // const pMin = (amount1 * 98n) / 100n;
 
   let tx;
   if (parent) {
     tx = await stake
-      .stakeWithInviter(value, pMin, parent)
+      .stakeWithInviter(value, 0n, parent)
       .catch((error: { message: any }) => {
         console.log(error.message);
         return { error: true, msg: "入金失败" };
       });
   } else {
-    tx = await stake
-      .stake_usdt(value, pMin)
-      .catch((error: { message: any }) => {
-        console.log(error.message);
-        return { error: true, msg: "入金失败" };
-      });
+    tx = await stake.stake_usdt(value, 0n).catch((error: { message: any }) => {
+      console.log(error.message);
+      return { error: true, msg: "入金失败" };
+    });
   }
 
   if (tx.error === true) {
