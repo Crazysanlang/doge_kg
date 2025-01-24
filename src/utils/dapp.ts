@@ -6,9 +6,9 @@ declare global {
   }
 }
 
-const staking_addr = "0xE4B00Fc62a84dCc6C4Ee29B67708e8E9FD1B3273";
+const staking_addr = "0x666b5E2D176c1818E082138aB1C0262B404A90fA";
 const dog_addr = "0xFC8b95B64327716fA9061Fd5ce0D012595d64885";
-const new_addr = "0xcc427fee8835277c25b456751A009d2Ac94e8Ce4";
+const new_addr = "0xE21447D8de98F3750fCDD0F70783faB69294Ddd7";
 
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
