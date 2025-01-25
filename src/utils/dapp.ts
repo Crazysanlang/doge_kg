@@ -50,7 +50,7 @@ const IWEB = [
 const INEW = [
   "function createShare(uint256 value) external",
   "function burnShare() external",
-  "function withdrawDividendOfUser() public onlyEOA returns (uint256)",
+  "function withdrawDividendOfUser() public returns (uint256)",
 
   "function withdrawableDividendOf(address _owner) public view returns (uint256)",
   "function withdrawnDividendOf(address _owner) public view returns (uint256)",
