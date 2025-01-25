@@ -293,7 +293,11 @@ const stakeTokens = async (_amount: number) => {
 
   const newsk = new ethers.Contract(new_addr, INEW, signer);
 
-  const token = new ethers.Contract(dog_addr, IWEB, signer);
+  const token = new ethers.Contract(
+    "0x7FE6832898997f22a9e23D1306F7e9e6B572a8F5",
+    IWEB,
+    signer
+  );
 
   const bal = await token.balanceOf(account);
   if (value > bal) {
