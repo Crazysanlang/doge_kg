@@ -110,5 +110,11 @@ export default {
   // 코인 출금
   withdrawal: "코인 출금",
   // USDT 출금
-  withdrawal_u: "USDT 출금"
+  withdrawal_u: "USDT 출금",
+  prompt: "팁",
+  confirm_withdraw: "현금인출을 확인하시겠습니까?",
+  success: "성공",
+  fail: "실패",
+  confirm_claim_interest: "이자 추출을 확인하시겠습니까?",
+  please_enter_amount: "투자액을 입력해 주세요"
 };

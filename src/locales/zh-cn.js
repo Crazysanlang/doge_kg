@@ -113,5 +113,11 @@ export default {
   // 提币
   withdrawal: "提币",
   // 提U
-  withdrawal_u: "提U"
+  withdrawal_u: "提U",
+  prompt: "提示",
+  confirm_withdraw: "确定提现吗？",
+  success: "成功",
+  fail: "失败",
+  confirm_claim_interest: "确定提取利息吗？",
+  please_enter_amount: "请输入数量",
 };

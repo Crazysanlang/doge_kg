@@ -72,7 +72,7 @@ import {
   withdrawalPrincipal,
   claimInterest
 } from "@/utils/dapp";
-import Banner3 from "../../assets/banner3.png";
+import Banner3 from "../../assets/banner3.jpg";
 import { showConfirmDialog, showToast } from "vant";
 const { t } = useI18n();
 
@@ -88,6 +88,7 @@ const stakeInput = ref("");
 const getData = async () => {
   try {
     const res = await getMydata();
+    console.log(res);
     stakedAmount.value = res.stakeAmount || 0;
     interest.value = res.withdrawable || 0;
     startTime.value = formatTime(res.stakeTime);
@@ -109,11 +110,15 @@ const confirmStake = async () => {
   }
 
   try {
-    await stakeTokens(stakeInput.value);
-    showToast(t("success"));
+    const res = await stakeTokens(stakeInput.value);
+    if (res.error) {
+      showToast(res.msg);
+      return;
+    }
+    showToast(t("operation_success"));
     getData();
   } catch (error) {
-    showToast(t("fail"));
+    showToast(t("operation_failure"));
   }
 };
 
@@ -129,12 +134,16 @@ const handleWithdraw = async () => {
       message: t("confirm_withdraw")
     });
 
-    await withdrawalPrincipal();
-    showToast(t("success"));
+    const res = await withdrawalPrincipal();
+    if (res.error) {
+      showToast(res.msg);
+      return;
+    }
+    showToast(t("operation_success"));
     getData();
   } catch (error) {
     if (error.cancel) return; // User cancelled the dialog
-    showToast(t("fail"));
+    showToast(t("operation_failure"));
   }
 };
 
@@ -148,12 +157,16 @@ const handleClaimInterest = async () => {
       message: t("confirm_claim_interest")
     });
 
-    await claimInterest();
-    showToast(t("success"));
+    const res = await claimInterest();
+    if (res.error) {
+      showToast(res.msg);
+      return;
+    }
+    showToast(t("operation_success"));
     getData();
   } catch (error) {
     if (error.cancel) return; // User cancelled the dialog
-    showToast(t("fail"));
+    showToast(t("operation_failure"));
   }
 };
 

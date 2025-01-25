@@ -112,5 +112,11 @@ export default {
   // コイン出金
   withdrawal: "コイン出金",
   // USDT出金
-  withdrawal_u: "USDT出金"
+  withdrawal_u: "USDT出金",
+  prompt: "ヒント",
+  confirm_withdraw: "引き出しを確認しますか？",
+  success: "成功",
+  fail: "失敗",
+  confirm_claim_interest: "利息を引き出すを確認しますか？",
+  please_enter_amount: "投資額を入力してください"
 };
