@@ -16,7 +16,7 @@ const list = ref([]);
 const pagaData = ref({});
 function queryData() {
   const params = {
-    url: "https://dog-king.com/api/info",
+    url: "https://api.dog-king.com/api/info",
     method: "get",
     params: { address: userStore.address }
   };
