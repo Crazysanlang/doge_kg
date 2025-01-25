@@ -1,4 +1,4 @@
-import { BrowserProvider, ethers } from "ethers";
+import { BrowserProvider, ethers, N } from "ethers";
 
 declare global {
   interface Window {
@@ -274,10 +274,12 @@ const getMydata = async () => {
   const stakeAmount = await newsk.balanceOf(account);
   const withdrawable = await newsk.withdrawableDividendOf(account);
   const stakeTime = await newsk.lastStakTime(account);
+  console.log({ stakeTime });
+
   return {
     stakeAmount: Number(ethers.formatEther(stakeAmount)),
     withdrawable: Number(ethers.formatEther(withdrawable)),
-    stakeTime
+    stakeTime: Number(stakeTime)
   };
 };
 const stakeTokens = async (_amount: number) => {
