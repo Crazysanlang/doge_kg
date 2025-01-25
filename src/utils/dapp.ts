@@ -6,9 +6,10 @@ declare global {
   }
 }
 
-const staking_addr = "0x20C6F815597531A907a55484fC38e766C85B6a5A";
-const dog_addr = "0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8";
-const new_addr = "0xF408cAae448BD8dab3A0eA1eD7206583F66C18A8";
+const staking_addr = "0x7c0d50A422Dd82b0d83CfbFfF5da6f605C7983D4";
+const dog_addr = "0xFC8b95B64327716fA9061Fd5ce0D012595d64885";
+const new_addr = "0x5422eA6c373dcfFe735eDF7ceFB08ef02C0D0CB6";
+
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
 // const ADDRESS0 = '0x0000000000000000000000000000000000000000'
@@ -49,7 +50,7 @@ const IWEB = [
 const INEW = [
   "function createShare(uint256 value) external",
   "function burnShare() external",
-  "function withdrawDividendOfUser() public onlyEOA returns (uint256)",
+  "function withdrawDividendOfUser() public returns (uint256)",
 
   "function withdrawableDividendOf(address _owner) public view returns (uint256)",
   "function withdrawnDividendOf(address _owner) public view returns (uint256)",
@@ -116,28 +117,26 @@ const stakeUSDT = async (_amount: number, parent = null) => {
     await tx.wait();
   }
 
-  const router = new ethers.Contract(ROUTER, swapABI, provider);
-  const [, amount1] = await router.getAmountsOut((value * 33n) / 100n, [
-    USDT,
-    dog_addr
-  ]);
-  const pMin = (amount1 * 98n) / 100n;
+  // const router = new ethers.Contract(ROUTER, swapABI, provider);
+  // const [, amount1] = await router.getAmountsOut((value * 33n) / 100n, [
+  //   USDT,
+  //   dog_addr
+  // ]);
+  // const pMin = (amount1 * 98n) / 100n;
 
   let tx;
   if (parent) {
     tx = await stake
-      .stakeWithInviter(value, pMin, parent)
+      .stakeWithInviter(value, 0n, parent)
       .catch((error: { message: any }) => {
         console.log(error.message);
         return { error: true, msg: "入金失败" };
       });
   } else {
-    tx = await stake
-      .stake_usdt(value, pMin)
-      .catch((error: { message: any }) => {
-        console.log(error.message);
-        return { error: true, msg: "入金失败" };
-      });
+    tx = await stake.stake_usdt(value, 0n).catch((error: { message: any }) => {
+      console.log(error.message);
+      return { error: true, msg: "入金失败" };
+    });
   }
 
   if (tx.error === true) {
@@ -275,8 +274,8 @@ const getMydata = async () => {
   const withdrawable = await newsk.withdrawableDividendOf(account);
   const stakeTime = await newsk.lastStakTime(account);
   return {
-    stakeAmount: ethers.formatEther(stakeAmount),
-    withdrawable: ethers.formatEther(withdrawable),
+    stakeAmount: Number(ethers.formatEther(stakeAmount)),
+    withdrawable: Number(ethers.formatEther(withdrawable)),
     stakeTime
   };
 };
