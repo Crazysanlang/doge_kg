@@ -339,12 +339,12 @@ const withdrawalPrincipal = async () => {
 
 const claimInterest = async () => {
   if (!window.ethereum) return { error: true, msg: "please connect wallet" };
-  const account = await connectMetamask();
+  await connectMetamask();
   const provider = new ethers.BrowserProvider(window.ethereum);
   const signer = await provider.getSigner();
   const newsk = new ethers.Contract(new_addr, INEW, signer);
   const tx = await newsk
-    .withdrawDividendOfUser(account)
+    .withdrawDividendOfUser()
     .catch((error: { message: any }) => {
       console.log(error.message);
       return { error: true, msg: "提取失败" };
