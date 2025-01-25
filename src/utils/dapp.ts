@@ -274,8 +274,8 @@ const getMydata = async () => {
   const withdrawable = await newsk.withdrawableDividendOf(account);
   const stakeTime = await newsk.lastStakTime(account);
   return {
-    stakeAmount: ethers.formatEther(stakeAmount),
-    withdrawable: ethers.formatEther(withdrawable),
+    stakeAmount: Number(ethers.formatEther(stakeAmount)),
+    withdrawable: Number(ethers.formatEther(withdrawable)),
     stakeTime
   };
 };
