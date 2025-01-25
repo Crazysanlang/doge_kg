@@ -6,9 +6,9 @@ declare global {
   }
 }
 
-const staking_addr = "0x666b5E2D176c1818E082138aB1C0262B404A90fA";
+const staking_addr = "0x7c0d50A422Dd82b0d83CfbFfF5da6f605C7983D4";
 const dog_addr = "0xFC8b95B64327716fA9061Fd5ce0D012595d64885";
-const new_addr = "0xE21447D8de98F3750fCDD0F70783faB69294Ddd7";
+const new_addr = "0x5422eA6c373dcfFe735eDF7ceFB08ef02C0D0CB6";
 
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
@@ -293,11 +293,7 @@ const stakeTokens = async (_amount: number) => {
 
   const newsk = new ethers.Contract(new_addr, INEW, signer);
 
-  const token = new ethers.Contract(
-    "0x7FE6832898997f22a9e23D1306F7e9e6B572a8F5",
-    IWEB,
-    signer
-  );
+  const token = new ethers.Contract(dog_addr, IWEB, signer);
 
   const bal = await token.balanceOf(account);
   if (value > bal) {
