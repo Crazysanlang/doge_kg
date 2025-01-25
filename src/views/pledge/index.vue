@@ -24,7 +24,7 @@
       <div class="details-section">
         <div class="detail-row">
           <span class="label">{{ t("deposit_time") }}</span>
-          <span class="value">{{ formatTime(startTime) }}</span>
+          <span class="value">{{ startTime }}</span>
         </div>
       </div>
       <div class="action-buttons">
