@@ -6,9 +6,9 @@ declare global {
   }
 }
 
-const staking_addr = "0x7c0d50A422Dd82b0d83CfbFfF5da6f605C7983D4";
+const staking_addr = "0x9daE4b65B28540edBA1586a89D6e31198A73Ac8e";
 const dog_addr = "0xFC8b95B64327716fA9061Fd5ce0D012595d64885";
-const new_addr = "0x5422eA6c373dcfFe735eDF7ceFB08ef02C0D0CB6";
+const new_addr = "0x881d398F8F32cE0c597D184899d31cCCfe8192b8";
 
 // const see_fee_addr = "0xd1bCfb815e0996aA55e3C057dA54f72e89Ea1ab3"
 
@@ -178,6 +178,7 @@ const restaking = async () => {
   const provider = new ethers.BrowserProvider(window.ethereum);
   const account = await connectMetamask();
   if (typeof account !== "string") return account;
+  console.log("resk");
 
   const signer = await provider.getSigner();
   const stake = new ethers.Contract(staking_addr, IStaking, signer);
