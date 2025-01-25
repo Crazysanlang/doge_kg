@@ -72,7 +72,7 @@ import {
   withdrawalPrincipal,
   claimInterest
 } from "@/utils/dapp";
-import Banner3 from "../../assets/banner3.png";
+import Banner3 from "../../assets/banner3.jpg";
 import { showConfirmDialog, showToast } from "vant";
 const { t } = useI18n();
 
