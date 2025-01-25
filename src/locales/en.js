@@ -114,5 +114,11 @@ export default {
   // Withdraw Coins
   withdrawal: "Withdraw Coins",
   // Withdraw USDT
-  withdrawal_u: "Withdraw USDT"
+  withdrawal_u: "Withdraw USDT",
+  prompt: "Prompt",
+  confirm_withdraw: "Are you sure you want to withdraw?",
+  success: "Success",
+  fail: "Fail",
+  confirm_claim_interest: "Are you sure you want to claim interest?",
+  please_enter_amount: "Please enter the amount"
 };
