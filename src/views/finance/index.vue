@@ -30,7 +30,7 @@ const handleStake = async () => {
     showNotify({ type: "warning", message: t("please_input") });
     return;
   }
-  if (Number(stakeValue.value) < 200) {
+  if (Number(stakeValue.value) < 100) {
     showNotify({ type: "warning", message: t("invest_more") });
     return;
   }

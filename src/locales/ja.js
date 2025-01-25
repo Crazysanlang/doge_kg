@@ -9,7 +9,7 @@ export default {
   my_team: "私のチーム",
   my_deposit1: "私の預託",
   // 1回の投資は200 USDT以上
-  invest_more: "市価総額の増強200 USDT以上",
+  invest_more: "市価総額の増強100 USDT以上",
   // 投資額を入力してください
   please_input: "投資額を入力してください",
   // ウェルカミングヒント
@@ -42,7 +42,7 @@ export default {
   invitation_link: "招待リンク",
   // dog kingに参加して200ドル未満の場合は、招待権益がありません
   participate_dog:
-    "dog kingに参加して200ドル未満の場合は、招待権益がありません",
+    "dog kingに参加して100ドル未満の場合は、招待権益がありません",
   // 推薦人数
   recommend_number: "推薦人数",
   // チーム業績

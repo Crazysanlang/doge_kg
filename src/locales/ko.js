@@ -9,7 +9,7 @@ export default {
   my_team: "나의 팀",
   my_deposit1: "내預託",
   // 단일 투자액 200 USDT 이상
-  invest_more: "시장가치 증대 200 USDT 이상",
+  invest_more: "시장가치 증대 100 USDT 이상",
   // 투자액을 입력해 주세요
   please_input: "투자액을 입력해 주세요",
   // 친절한 팁
@@ -41,7 +41,7 @@ export default {
   // 초대 링크
   invitation_link: "초대 링크",
   // dog king에 참여하여 $200 미만인 경우, 초대 혜택이 없습니다
-  participate_dog: "dog king에 참여하여 $200 미만인 경우, 초대 혜택이 없습니다",
+  participate_dog: "dog king에 참여하여 $100 미만인 경우, 초대 혜택이 없습니다",
   // 추천 인원
   recommend_number: "추천 인원",
   // 팀 업적

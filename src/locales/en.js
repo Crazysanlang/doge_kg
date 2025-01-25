@@ -9,7 +9,7 @@ export default {
   my_team: "My Team",
   my_deposit1: "My Stake",
   // 单次投资200usdt以上
-  invest_more: "Enhance Market Capitalization over 200 USDT at a time",
+  invest_more: "Enhance Market Capitalization over 100 USDT at a time",
   // 请输入投资数量
   please_input: "Please enter the investment amount",
   // 温馨提示
@@ -44,7 +44,7 @@ export default {
   invitation_link: "Invitation Link",
   // 参与dog king低于$200，无邀请权益
   participate_dog:
-    "Participating in dog king with less than $200 does not grant invitation benefits",
+    "Participating in dog king with less than $100 does not grant invitation benefits",
   // 推荐人数
   recommend_number: "Number of Recommendations",
   //  团队业绩

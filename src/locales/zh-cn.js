@@ -9,7 +9,7 @@ export default {
   my_team: "我的团队",
   my_deposit1: "我的质押",
   // 单次投资200usdt以上
-  invest_more: "单次做市值200usdt以上",
+  invest_more: "单次做市值100usdt以上",
   // 请输入投资数量
   please_input: "请输入投资数量",
   // 温馨提示
@@ -41,7 +41,7 @@ export default {
   // 邀请链接
   invitation_link: "邀请链接",
   // 参与dog king低于$200，无邀请权益
-  participate_dog: "参与dog king低于$200，无邀请权益",
+  participate_dog: "参与dog king低于$100，无邀请权益",
   // 推荐人数
   recommend_number: "推荐人数",
   //  团队业绩
